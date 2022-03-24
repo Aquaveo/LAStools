@@ -1,3 +1,7 @@
+if (MSVC AND USE_TYPEDEF_WCHAR_T)
+	add_definitions(/Zc:wchar_t-)
+endif()
+
 set(LASZIP_API_SOURCES
     laszip_api.c
 )

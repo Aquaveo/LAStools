@@ -9,6 +9,10 @@ else()
 	add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 endif()
 
+if (MSVC AND USE_TYPEDEF_WCHAR_T)
+	add_definitions(/Zc:wchar_t-)
+endif()
+
 option(BUILD_SHARED_LIBS "Build LASlib as DLL" OFF)
 
 if (BUILD_SHARED_LIBS AND UNIX AND NOT APPLE)

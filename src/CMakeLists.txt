@@ -1,6 +1,11 @@
 if (!MSVC)
 add_compile_options(-Wno-deprecated -Wno-write-strings -Wno-unused-result)
 endif()
+
+if (MSVC AND USE_TYPEDEF_WCHAR_T)
+	add_definitions(/Zc:wchar_t-)
+endif()
+
 add_definitions(-DNDEBUG )
 
 include_directories(../LASzip/src)

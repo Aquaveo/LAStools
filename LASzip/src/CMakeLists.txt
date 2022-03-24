@@ -5,6 +5,10 @@
 # Copyright (c) 2009 Mateusz Loskot <mateusz@loskot.net>
 #
 ###############################################################################
+if (MSVC AND USE_TYPEDEF_WCHAR_T)
+	add_definitions(/Zc:wchar_t-)
+endif()
+
 set(LASZIP_SOURCES
     arithmeticdecoder.cpp
     arithmeticencoder.cpp

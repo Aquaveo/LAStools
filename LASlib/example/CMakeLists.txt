@@ -2,6 +2,10 @@ if (!MSVC)
 	add_compile_options(-Wno-unused-result)
 endif()
 
+if (MSVC AND USE_TYPEDEF_WCHAR_T)
+	add_definitions(/Zc:wchar_t-)
+endif()
+
 include_directories(../../LASzip/src ../inc)
 
 set(TARGETS

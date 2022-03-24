@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 project(LASzip CXX C)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
 
+if (MSVC AND USE_TYPEDEF_WCHAR_T)
+	add_definitions(/Zc:wchar_t-)
+endif()
+
 set(ROOT_DIR "${PROJECT_SOURCE_DIR}")
 
 # the next line is the ONLY place in the entire laszip system where
