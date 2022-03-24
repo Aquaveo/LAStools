@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.1.2 FATAL_ERROR)
 set(CMAKE_SUPPRESS_REGENERATION true)
+set(CMAKE_CXX_STANDARD 17)
 
 project(LASzip CXX C)
 string(TOLOWER ${PROJECT_NAME} PROJECT_NAME_LOWER)
