@@ -66,7 +66,7 @@ void LASignore::dont_ignore_class(U8 classification)
   }
 }
 
-BOOL LASignore::parse(int& i, int argc, char *argv[])
+LASBOOL LASignore::parse(int& i, int argc, char *argv[])
 {
   if ((strcmp(argv[i],"-ignore_class") == 0) || (strcmp(argv[i],"-ignore_extended_class") == 0))
   {
@@ -280,7 +280,7 @@ U32 LASignore::get_decompress_selective() const
   return decompress_selective;
 }
 
-BOOL LASignore::parse(U32 curr_parameter, const U32 num_parameters, const F64* parameters)
+LASBOOL LASignore::parse(U32 curr_parameter, const U32 num_parameters, const F64* parameters)
 {
   if (curr_parameter == num_parameters)
   {
@@ -335,7 +335,7 @@ void LASignore::unparse(U32& num_parameters, F64* parameters) const
   }
 }
 
-BOOL LASignore::ignore(const LASpoint* point) const
+LASBOOL LASignore::ignore(const LASpoint* point) const
 {
   if (ignore_mask)
   {

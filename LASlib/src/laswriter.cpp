@@ -52,7 +52,7 @@ void LASwriter::dealloc()
   delete this;
 }
 
-BOOL LASwriteOpener::is_piped() const
+LASBOOL LASwriteOpener::is_piped() const
 {
   return ((file_name == 0) && use_stdout);
 }
@@ -240,7 +240,7 @@ void LASwriteOpener::usage() const
   fprintf(stderr,"  -nil    (pipe to NULL)\n");
 }
 
-BOOL LASwriteOpener::parse(int argc, char* argv[])
+LASBOOL LASwriteOpener::parse(int argc, char* argv[])
 {
   int i;
   for (i = 1; i < argc; i++)
@@ -425,7 +425,7 @@ void LASwriteOpener::set_io_obuffer_size(I32 io_obuffer_size)
   this->io_obuffer_size = io_obuffer_size;
 }
 
-BOOL LASwriteOpener::set_directory(const CHAR* directory)
+LASBOOL LASwriteOpener::set_directory(const CHAR* directory)
 {
   if (this->directory) free(this->directory);
   if (directory)
@@ -625,12 +625,12 @@ void LASwriteOpener::set_cut(U32 cut)
   if (cut && file_name) cut_characters();
 }
 
-void LASwriteOpener::set_native(BOOL native)
+void LASwriteOpener::set_native(LASBOOL native)
 {
   this->native = native;
 }
 
-BOOL LASwriteOpener::set_format(I32 format)
+LASBOOL LASwriteOpener::set_format(I32 format)
 {
   if ((format < LAS_TOOLS_FORMAT_DEFAULT) || (format > LAS_TOOLS_FORMAT_TXT))
   {
@@ -695,7 +695,7 @@ BOOL LASwriteOpener::set_format(I32 format)
   return TRUE;
 }
 
-BOOL LASwriteOpener::set_format(const CHAR* format)
+LASBOOL LASwriteOpener::set_format(const CHAR* format)
 {
   if (format)
   {
@@ -732,7 +732,7 @@ BOOL LASwriteOpener::set_format(const CHAR* format)
   return TRUE;
 }
 
-void LASwriteOpener::set_force(BOOL force)
+void LASwriteOpener::set_force(LASBOOL force)
 {
   this->force = force;
 }
@@ -992,12 +992,12 @@ U32 LASwriteOpener::get_cut() const
   return cut;
 }
 
-BOOL LASwriteOpener::get_native() const
+LASBOOL LASwriteOpener::get_native() const
 {
   return native;
 }
 
-BOOL LASwriteOpener::format_was_specified() const
+LASBOOL LASwriteOpener::format_was_specified() const
 {
   return specified;
 }
@@ -1075,7 +1075,7 @@ void LASwriteOpener::set_scale_rgb(F32 scale_rgb)
   this->scale_rgb = scale_rgb;
 }
 
-BOOL LASwriteOpener::active() const
+LASBOOL LASwriteOpener::active() const
 {
   return (file_name != 0 || use_stdout || use_nil);
 }

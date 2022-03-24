@@ -47,19 +47,19 @@ class ByteStreamOutFile : public ByteStreamOut
 public:
   ByteStreamOutFile(FILE* file);
 /* replace a closed FILE* with a reopened FILE* in "ab" mode */
-  BOOL refile(FILE* file);
+  LASBOOL refile(FILE* file);
 /* write a single byte                                       */
-  BOOL putByte(U8 byte);
+  LASBOOL putByte(U8 byte);
 /* write an array of bytes                                   */
-  BOOL putBytes(const U8* bytes, U32 num_bytes);
+  LASBOOL putBytes(const U8* bytes, U32 num_bytes);
 /* is the stream seekable (e.g. standard out is not)         */
-  BOOL isSeekable() const;
+  LASBOOL isSeekable() const;
 /* get current position of stream                            */
   I64 tell() const;
 /* seek to this position in the stream                       */
-  BOOL seek(const I64 position);
+  LASBOOL seek(const I64 position);
 /* seek to the end of the file                               */
-  BOOL seekEnd();
+  LASBOOL seekEnd();
 /* destructor                                                */
   ~ByteStreamOutFile(){};
 protected:
@@ -71,17 +71,17 @@ class ByteStreamOutFileLE : public ByteStreamOutFile
 public:
   ByteStreamOutFileLE(FILE* file);
 /* write 16 bit low-endian field                             */
-  BOOL put16bitsLE(const U8* bytes);
+  LASBOOL put16bitsLE(const U8* bytes);
 /* write 32 bit low-endian field                             */
-  BOOL put32bitsLE(const U8* bytes);
+  LASBOOL put32bitsLE(const U8* bytes);
 /* write 64 bit low-endian field                             */
-  BOOL put64bitsLE(const U8* bytes);
+  LASBOOL put64bitsLE(const U8* bytes);
 /* write 16 bit big-endian field                             */
-  BOOL put16bitsBE(const U8* bytes);
+  LASBOOL put16bitsBE(const U8* bytes);
 /* write 32 bit big-endian field                             */
-  BOOL put32bitsBE(const U8* bytes);
+  LASBOOL put32bitsBE(const U8* bytes);
 /* write 64 bit big-endian field                             */
-  BOOL put64bitsBE(const U8* bytes);
+  LASBOOL put64bitsBE(const U8* bytes);
 private:
   U8 swapped[8];
 };
@@ -91,17 +91,17 @@ class ByteStreamOutFileBE : public ByteStreamOutFile
 public:
   ByteStreamOutFileBE(FILE* file);
 /* write 16 bit low-endian field                             */
-  BOOL put16bitsLE(const U8* bytes);
+  LASBOOL put16bitsLE(const U8* bytes);
 /* write 32 bit low-endian field                             */
-  BOOL put32bitsLE(const U8* bytes);
+  LASBOOL put32bitsLE(const U8* bytes);
 /* write 64 bit low-endian field                             */
-  BOOL put64bitsLE(const U8* bytes);
+  LASBOOL put64bitsLE(const U8* bytes);
 /* write 16 bit big-endian field                             */
-  BOOL put16bitsBE(const U8* bytes);
+  LASBOOL put16bitsBE(const U8* bytes);
 /* write 32 bit big-endian field                             */
-  BOOL put32bitsBE(const U8* bytes);
+  LASBOOL put32bitsBE(const U8* bytes);
 /* write 64 bit big-endian field                             */
-  BOOL put64bitsBE(const U8* bytes);
+  LASBOOL put64bitsBE(const U8* bytes);
 private:
   U8 swapped[8];
 };
@@ -111,24 +111,24 @@ inline ByteStreamOutFile::ByteStreamOutFile(FILE* file)
   this->file = file;
 }
 
-inline BOOL ByteStreamOutFile::refile(FILE* file)
+inline LASBOOL ByteStreamOutFile::refile(FILE* file)
 {
   if (file == 0) return FALSE;
   this->file = file;
   return TRUE;
 }
 
-inline BOOL ByteStreamOutFile::putByte(U8 byte)
+inline LASBOOL ByteStreamOutFile::putByte(U8 byte)
 {
   return (fputc(byte, file) == byte);
 }
 
-inline BOOL ByteStreamOutFile::putBytes(const U8* bytes, U32 num_bytes)
+inline LASBOOL ByteStreamOutFile::putBytes(const U8* bytes, U32 num_bytes)
 {
   return (fwrite(bytes, 1, num_bytes, file) == num_bytes);
 }
 
-inline BOOL ByteStreamOutFile::isSeekable() const
+inline LASBOOL ByteStreamOutFile::isSeekable() const
 {
   return (file != stdout);
 }
@@ -144,7 +144,7 @@ inline I64 ByteStreamOutFile::tell() const
 #endif
 }
 
-inline BOOL ByteStreamOutFile::seek(I64 position)
+inline LASBOOL ByteStreamOutFile::seek(I64 position)
 {
 #if defined _WIN32 && ! defined (__MINGW32__)
   return !(_fseeki64(file, position, SEEK_SET));
@@ -155,7 +155,7 @@ inline BOOL ByteStreamOutFile::seek(I64 position)
 #endif
 }
 
-inline BOOL ByteStreamOutFile::seekEnd()
+inline LASBOOL ByteStreamOutFile::seekEnd()
 {
 #if defined _WIN32 && ! defined (__MINGW32__)
   return !(_fseeki64(file, 0, SEEK_END));
@@ -170,29 +170,29 @@ inline ByteStreamOutFileLE::ByteStreamOutFileLE(FILE* file) : ByteStreamOutFile(
 {
 }
 
-inline BOOL ByteStreamOutFileLE::put16bitsLE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileLE::put16bitsLE(const U8* bytes)
 {
   return putBytes(bytes, 2);
 }
 
-inline BOOL ByteStreamOutFileLE::put32bitsLE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileLE::put32bitsLE(const U8* bytes)
 {
   return putBytes(bytes, 4);
 }
 
-inline BOOL ByteStreamOutFileLE::put64bitsLE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileLE::put64bitsLE(const U8* bytes)
 {
   return putBytes(bytes, 8);
 }
 
-inline BOOL ByteStreamOutFileLE::put16bitsBE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileLE::put16bitsBE(const U8* bytes)
 {
   swapped[0] = bytes[1];
   swapped[1] = bytes[0];
   return putBytes(swapped, 2);
 }
 
-inline BOOL ByteStreamOutFileLE::put32bitsBE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileLE::put32bitsBE(const U8* bytes)
 {
   swapped[0] = bytes[3];
   swapped[1] = bytes[2];
@@ -201,7 +201,7 @@ inline BOOL ByteStreamOutFileLE::put32bitsBE(const U8* bytes)
   return putBytes(swapped, 4);
 }
 
-inline BOOL ByteStreamOutFileLE::put64bitsBE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileLE::put64bitsBE(const U8* bytes)
 {
   swapped[0] = bytes[7];
   swapped[1] = bytes[6];
@@ -218,14 +218,14 @@ inline ByteStreamOutFileBE::ByteStreamOutFileBE(FILE* file) : ByteStreamOutFile(
 {
 }
 
-inline BOOL ByteStreamOutFileBE::put16bitsLE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileBE::put16bitsLE(const U8* bytes)
 {
   swapped[0] = bytes[1];
   swapped[1] = bytes[0];
   return putBytes(swapped, 2);
 }
 
-inline BOOL ByteStreamOutFileBE::put32bitsLE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileBE::put32bitsLE(const U8* bytes)
 {
   swapped[0] = bytes[3];
   swapped[1] = bytes[2];
@@ -234,7 +234,7 @@ inline BOOL ByteStreamOutFileBE::put32bitsLE(const U8* bytes)
   return putBytes(swapped, 4);
 }
 
-inline BOOL ByteStreamOutFileBE::put64bitsLE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileBE::put64bitsLE(const U8* bytes)
 {
   swapped[0] = bytes[7];
   swapped[1] = bytes[6];
@@ -247,17 +247,17 @@ inline BOOL ByteStreamOutFileBE::put64bitsLE(const U8* bytes)
   return putBytes(swapped, 8);
 }
 
-inline BOOL ByteStreamOutFileBE::put16bitsBE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileBE::put16bitsBE(const U8* bytes)
 {
   return putBytes(bytes, 2);
 }
 
-inline BOOL ByteStreamOutFileBE::put32bitsBE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileBE::put32bitsBE(const U8* bytes)
 {
   return putBytes(bytes, 4);
 }
 
-inline BOOL ByteStreamOutFileBE::put64bitsBE(const U8* bytes)
+inline LASBOOL ByteStreamOutFileBE::put64bitsBE(const U8* bytes)
 {
   return putBytes(bytes, 8);
 }

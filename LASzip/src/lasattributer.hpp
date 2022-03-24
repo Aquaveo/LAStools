@@ -81,16 +81,16 @@ public:
     if (description) strncpy(this->description, description, 32);
   };
 
-  inline BOOL set_no_data(U8  no_data) { if (0 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(I8  no_data) { if (1 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(U16 no_data) { if (2 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(I16 no_data) { if (3 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(U32 no_data) { if (4 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(I32 no_data) { if (5 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(U64 no_data) { if (6 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(I64 no_data) { if (7 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(F32 no_data) { if (8 == get_type()) { this->no_data[0].f64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
-  inline BOOL set_no_data(F64 no_data)
+  inline LASBOOL set_no_data(U8  no_data) { if (0 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(I8  no_data) { if (1 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(U16 no_data) { if (2 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(I16 no_data) { if (3 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(U32 no_data) { if (4 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(I32 no_data) { if (5 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(U64 no_data) { if (6 == get_type()) { this->no_data[0].u64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(I64 no_data) { if (7 == get_type()) { this->no_data[0].i64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(F32 no_data) { if (8 == get_type()) { this->no_data[0].f64 = no_data; options |= 0x01; return TRUE; } return FALSE; };
+  inline LASBOOL set_no_data(F64 no_data)
   {
     switch (get_type())
     {
@@ -119,41 +119,41 @@ public:
 
   inline void set_min(U8* min) { this->min[0] = cast(min); options |= 0x02; };
   inline void update_min(U8* min) { this->min[0] = smallest(cast(min), this->min[0]); };
-  inline BOOL set_min(U8  min) { if (0 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(I8  min) { if (1 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(U16 min) { if (2 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(I16 min) { if (3 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(U32 min) { if (4 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(I32 min) { if (5 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(U64 min) { if (6 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(I64 min) { if (7 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(F32 min) { if (8 == get_type()) { this->min[0].f64 = min; options |= 0x02; return TRUE; } return FALSE; };
-  inline BOOL set_min(F64 min) { if (9 == get_type()) { this->min[0].f64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(U8  min) { if (0 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(I8  min) { if (1 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(U16 min) { if (2 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(I16 min) { if (3 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(U32 min) { if (4 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(I32 min) { if (5 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(U64 min) { if (6 == get_type()) { this->min[0].u64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(I64 min) { if (7 == get_type()) { this->min[0].i64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(F32 min) { if (8 == get_type()) { this->min[0].f64 = min; options |= 0x02; return TRUE; } return FALSE; };
+  inline LASBOOL set_min(F64 min) { if (9 == get_type()) { this->min[0].f64 = min; options |= 0x02; return TRUE; } return FALSE; };
 
   inline void set_max(U8* max) { this->max[0] = cast(max); options |= 0x04; };
   inline void update_max(U8* max) { this->max[0] = biggest(cast(max), this->max[0]); };
-  inline BOOL set_max(U8  max) { if (0 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(I8  max) { if (1 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(U16 max) { if (2 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(I16 max) { if (3 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(U32 max) { if (4 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(I32 max) { if (5 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(U64 max) { if (6 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(I64 max) { if (7 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(F32 max) { if (8 == get_type()) { this->max[0].f64 = max; options |= 0x04; return TRUE; } return FALSE; };
-  inline BOOL set_max(F64 max) { if (9 == get_type()) { this->max[0].f64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(U8  max) { if (0 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(I8  max) { if (1 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(U16 max) { if (2 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(I16 max) { if (3 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(U32 max) { if (4 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(I32 max) { if (5 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(U64 max) { if (6 == get_type()) { this->max[0].u64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(I64 max) { if (7 == get_type()) { this->max[0].i64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(F32 max) { if (8 == get_type()) { this->max[0].f64 = max; options |= 0x04; return TRUE; } return FALSE; };
+  inline LASBOOL set_max(F64 max) { if (9 == get_type()) { this->max[0].f64 = max; options |= 0x04; return TRUE; } return FALSE; };
 
-  inline BOOL set_scale(F64 scale) { if (data_type) { this->scale[0] = scale; options |= 0x08; return TRUE; } return FALSE; };
-  inline BOOL set_offset(F64 offset) { if (data_type) { this->offset[0] = offset; options |= 0x10; return TRUE; } return FALSE; };
+  inline LASBOOL set_scale(F64 scale) { if (data_type) { this->scale[0] = scale; options |= 0x08; return TRUE; } return FALSE; };
+  inline LASBOOL set_offset(F64 offset) { if (data_type) { this->offset[0] = offset; options |= 0x10; return TRUE; } return FALSE; };
 
-  inline BOOL unset_scale() { if (data_type) { options &= (~0x08); return TRUE; } return FALSE; };
-  inline BOOL unset_offset() { if (data_type) { options &= (~0x10); return TRUE; } return FALSE; };
+  inline LASBOOL unset_scale() { if (data_type) { options &= (~0x08); return TRUE; } return FALSE; };
+  inline LASBOOL unset_offset() { if (data_type) { options &= (~0x10); return TRUE; } return FALSE; };
 
-  inline BOOL has_no_data() const { return options & 0x01; };
-  inline BOOL has_min() const { return options & 0x02; };
-  inline BOOL has_max() const { return options & 0x04; };
-  inline BOOL has_scale() const { return options & 0x08; };
-  inline BOOL has_offset() const { return options & 0x10; };
+  inline LASBOOL has_no_data() const { return options & 0x01; };
+  inline LASBOOL has_min() const { return options & 0x02; };
+  inline LASBOOL has_max() const { return options & 0x04; };
+  inline LASBOOL has_scale() const { return options & 0x08; };
+  inline LASBOOL has_offset() const { return options & 0x10; };
 
   inline U32 get_size() const
   {
@@ -338,7 +338,7 @@ private:
 class LASLIB_DLL LASattributer
 {
 public:
-  BOOL attributes_linked;
+  LASBOOL attributes_linked;
   I32 number_attributes;
   LASattribute* attributes;
   I32* attribute_starts;
@@ -372,7 +372,7 @@ public:
     }
   };
 
-  BOOL init_attributes(U32 number_attributes, LASattribute* attributes)
+  LASBOOL init_attributes(U32 number_attributes, LASattribute* attributes)
   {
     U32 i;
     clean_attributes();
@@ -514,7 +514,7 @@ public:
     return 0;
   }
 
-  BOOL remove_attribute(I32 index)
+  LASBOOL remove_attribute(I32 index)
   {
     if (index < 0 || index >= number_attributes)
     {
@@ -549,7 +549,7 @@ public:
     return TRUE;
   }
 
-  BOOL remove_attribute(const CHAR* name)
+  LASBOOL remove_attribute(const CHAR* name)
   {
     I32 index = get_attribute_index(name);
     if (index != -1)

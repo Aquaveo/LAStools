@@ -66,7 +66,7 @@ typedef struct LASpoint14
   U8 dummy[2];
 
   // compressed LASzip 1.4 points only
-  BOOL gps_time_change;
+  LASBOOL gps_time_change;
 
   F64 gps_time;
   U16 rgb[4];
@@ -224,7 +224,7 @@ LASreadItemCompressed_POINT14_v3::~LASreadItemCompressed_POINT14_v3()
   if (bytes) delete [] bytes;
 }
 
-inline BOOL LASreadItemCompressed_POINT14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
+inline LASBOOL LASreadItemCompressed_POINT14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
 {
   I32 i;
 
@@ -384,7 +384,7 @@ inline BOOL LASreadItemCompressed_POINT14_v3::createAndInitModelsAndDecompressor
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_POINT14_v3::chunk_sizes()
+LASBOOL LASreadItemCompressed_POINT14_v3::chunk_sizes()
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -405,7 +405,7 @@ BOOL LASreadItemCompressed_POINT14_v3::chunk_sizes()
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_POINT14_v3::init(const U8* item, U32& context)
+LASBOOL LASreadItemCompressed_POINT14_v3::init(const U8* item, U32& context)
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -751,9 +751,9 @@ inline void LASreadItemCompressed_POINT14_v3::read(U8* item, U32& context)
 
   // determine changed attributes
 
-  BOOL point_source_change = (changed_values & (1 << 5) ? TRUE : FALSE);
-  BOOL gps_time_change = (changed_values & (1 << 4) ? TRUE : FALSE);
-  BOOL scan_angle_change = (changed_values & (1 << 3) ? TRUE : FALSE);
+  LASBOOL point_source_change = (changed_values & (1 << 5) ? TRUE : FALSE);
+  LASBOOL gps_time_change = (changed_values & (1 << 4) ? TRUE : FALSE);
+  LASBOOL scan_angle_change = (changed_values & (1 << 3) ? TRUE : FALSE);
 
   // get last return counts
 
@@ -1173,7 +1173,7 @@ LASreadItemCompressed_RGB14_v3::~LASreadItemCompressed_RGB14_v3()
   if (bytes) delete [] bytes;
 }
 
-inline BOOL LASreadItemCompressed_RGB14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
+inline LASBOOL LASreadItemCompressed_RGB14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
 {
   /* should only be called when context is unused */
 
@@ -1211,7 +1211,7 @@ inline BOOL LASreadItemCompressed_RGB14_v3::createAndInitModelsAndDecompressors(
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_RGB14_v3::chunk_sizes()
+LASBOOL LASreadItemCompressed_RGB14_v3::chunk_sizes()
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -1224,7 +1224,7 @@ BOOL LASreadItemCompressed_RGB14_v3::chunk_sizes()
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_RGB14_v3::init(const U8* item, U32& context)
+LASBOOL LASreadItemCompressed_RGB14_v3::init(const U8* item, U32& context)
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -1497,7 +1497,7 @@ LASreadItemCompressed_RGBNIR14_v3::~LASreadItemCompressed_RGBNIR14_v3()
   if (bytes) delete [] bytes;
 }
 
-inline BOOL LASreadItemCompressed_RGBNIR14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
+inline LASBOOL LASreadItemCompressed_RGBNIR14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
 {
   /* should only be called when context is unused */
 
@@ -1554,7 +1554,7 @@ inline BOOL LASreadItemCompressed_RGBNIR14_v3::createAndInitModelsAndDecompresso
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_RGBNIR14_v3::chunk_sizes()
+LASBOOL LASreadItemCompressed_RGBNIR14_v3::chunk_sizes()
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -1568,7 +1568,7 @@ BOOL LASreadItemCompressed_RGBNIR14_v3::chunk_sizes()
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_RGBNIR14_v3::init(const U8* item, U32& context)
+LASBOOL LASreadItemCompressed_RGBNIR14_v3::init(const U8* item, U32& context)
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -1896,7 +1896,7 @@ LASreadItemCompressed_WAVEPACKET14_v3::~LASreadItemCompressed_WAVEPACKET14_v3()
   if (bytes) delete [] bytes;
 }
 
-inline BOOL LASreadItemCompressed_WAVEPACKET14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
+inline LASBOOL LASreadItemCompressed_WAVEPACKET14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
 {
   /* should only be called when context is unused */
 
@@ -1943,7 +1943,7 @@ inline BOOL LASreadItemCompressed_WAVEPACKET14_v3::createAndInitModelsAndDecompr
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_WAVEPACKET14_v3::chunk_sizes()
+LASBOOL LASreadItemCompressed_WAVEPACKET14_v3::chunk_sizes()
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -1956,7 +1956,7 @@ BOOL LASreadItemCompressed_WAVEPACKET14_v3::chunk_sizes()
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_WAVEPACKET14_v3::init(const U8* item, U32& context)
+LASBOOL LASreadItemCompressed_WAVEPACKET14_v3::init(const U8* item, U32& context)
 {
   /* for layered compression 'dec' only hands over the stream */
 
@@ -2124,9 +2124,9 @@ LASreadItemCompressed_BYTE14_v3::LASreadItemCompressed_BYTE14_v3(ArithmeticDecod
 
   num_bytes_Bytes = new U32[number];
 
-  changed_Bytes = new BOOL[number];
+  changed_Bytes = new LASBOOL[number];
 
-  requested_Bytes = new BOOL[number];
+  requested_Bytes = new LASBOOL[number];
 
   U32 i;
   for (i = 0; i < number; i++)
@@ -2206,7 +2206,7 @@ LASreadItemCompressed_BYTE14_v3::~LASreadItemCompressed_BYTE14_v3()
   if (bytes) delete [] bytes;
 }
 
-inline BOOL LASreadItemCompressed_BYTE14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
+inline LASBOOL LASreadItemCompressed_BYTE14_v3::createAndInitModelsAndDecompressors(U32 context, const U8* item)
 {
   U32 i;
 
@@ -2245,7 +2245,7 @@ inline BOOL LASreadItemCompressed_BYTE14_v3::createAndInitModelsAndDecompressors
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_BYTE14_v3::chunk_sizes()
+LASBOOL LASreadItemCompressed_BYTE14_v3::chunk_sizes()
 {
   U32 i;
 
@@ -2263,7 +2263,7 @@ BOOL LASreadItemCompressed_BYTE14_v3::chunk_sizes()
   return TRUE;
 }
 
-BOOL LASreadItemCompressed_BYTE14_v3::init(const U8* item, U32& context)
+LASBOOL LASreadItemCompressed_BYTE14_v3::init(const U8* item, U32& context)
 {
   U32 i;
 

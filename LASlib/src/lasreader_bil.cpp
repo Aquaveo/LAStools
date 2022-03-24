@@ -39,7 +39,7 @@
 #include <windows.h>
 #endif
 
-BOOL LASreaderBIL::open(const CHAR* file_name)
+LASBOOL LASreaderBIL::open(const CHAR* file_name)
 {
   if (file_name == 0)
   {
@@ -358,7 +358,7 @@ BOOL LASreaderBIL::open(const CHAR* file_name)
   return reopen(file_name);
 }
 
-BOOL LASreaderBIL::read_hdr_file(const CHAR* file_name)
+LASBOOL LASreaderBIL::read_hdr_file(const CHAR* file_name)
 {
   if (file_name == 0)
   {
@@ -531,7 +531,7 @@ BOOL LASreaderBIL::read_hdr_file(const CHAR* file_name)
   return TRUE;
 }
 
-BOOL LASreaderBIL::read_blw_file(const CHAR* file_name)
+LASBOOL LASreaderBIL::read_blw_file(const CHAR* file_name)
 {
   if (file_name == 0)
   {
@@ -653,12 +653,12 @@ void LASreaderBIL::set_offset(const F64* offset)
 }
 
 
-BOOL LASreaderBIL::seek(const I64 p_index)
+LASBOOL LASreaderBIL::seek(const I64 p_index)
 {
   return FALSE;
 }
 
-BOOL LASreaderBIL::read_point_default()
+LASBOOL LASreaderBIL::read_point_default()
 {
   F32 elevation;
   while (p_count < npoints)
@@ -798,7 +798,7 @@ ByteStreamIn* LASreaderBIL::get_stream() const
   return 0;
 }
 
-void LASreaderBIL::close(BOOL close_stream)
+void LASreaderBIL::close(LASBOOL close_stream)
 {
   if (overflow_I32_x)
   {
@@ -834,7 +834,7 @@ void LASreaderBIL::close(BOOL close_stream)
   }
 }
 
-BOOL LASreaderBIL::reopen(const CHAR* file_name)
+LASBOOL LASreaderBIL::reopen(const CHAR* file_name)
 {
   if (file_name == 0)
   {
@@ -1049,7 +1049,7 @@ LASreaderBILrescale::LASreaderBILrescale(F64 x_scale_factor, F64 y_scale_factor,
   scale_factor[2] = z_scale_factor;
 }
 
-BOOL LASreaderBILrescale::open(const CHAR* file_name)
+LASBOOL LASreaderBILrescale::open(const CHAR* file_name)
 {
   LASreaderBIL::set_scale_factor(scale_factor);
   if (!LASreaderBIL::open(file_name)) return FALSE;
@@ -1063,7 +1063,7 @@ LASreaderBILreoffset::LASreaderBILreoffset(F64 x_offset, F64 y_offset, F64 z_off
   this->offset[2] = z_offset;
 }
 
-BOOL LASreaderBILreoffset::open(const CHAR* file_name)
+LASBOOL LASreaderBILreoffset::open(const CHAR* file_name)
 {
   LASreaderBIL::set_offset(offset);
   if (!LASreaderBIL::open(file_name)) return FALSE;
@@ -1074,7 +1074,7 @@ LASreaderBILrescalereoffset::LASreaderBILrescalereoffset(F64 x_scale_factor, F64
 {
 }
 
-BOOL LASreaderBILrescalereoffset::open(const CHAR* file_name)
+LASBOOL LASreaderBILrescalereoffset::open(const CHAR* file_name)
 {
   LASreaderBIL::set_scale_factor(scale_factor);
   LASreaderBIL::set_offset(offset);

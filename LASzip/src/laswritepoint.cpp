@@ -62,7 +62,7 @@ LASwritePoint::LASwritePoint()
   chunk_start_position = 0;
 }
 
-BOOL LASwritePoint::setup(const U32 num_items, const LASitem* items, const LASzip* laszip)
+LASBOOL LASwritePoint::setup(const U32 num_items, const LASitem* items, const LASzip* laszip)
 {
   U32 i;
 
@@ -254,7 +254,7 @@ BOOL LASwritePoint::setup(const U32 num_items, const LASitem* items, const LASzi
   return TRUE;
 }
 
-BOOL LASwritePoint::init(ByteStreamOut* outstream)
+LASBOOL LASwritePoint::init(ByteStreamOut* outstream)
 {
   if (!outstream) return FALSE;
   this->outstream = outstream;
@@ -293,7 +293,7 @@ BOOL LASwritePoint::init(ByteStreamOut* outstream)
   return TRUE;
 }
 
-BOOL LASwritePoint::write(const U8 * const * point)
+LASBOOL LASwritePoint::write(const U8 * const * point)
 {
   U32 i;
   U32 context = 0;
@@ -352,7 +352,7 @@ BOOL LASwritePoint::write(const U8 * const * point)
   return TRUE;
 }
 
-BOOL LASwritePoint::chunk()
+LASBOOL LASwritePoint::chunk()
 {
   if (chunk_start_position == 0 || chunk_size != U32_MAX)
   {
@@ -383,7 +383,7 @@ BOOL LASwritePoint::chunk()
   return TRUE;
 }
 
-BOOL LASwritePoint::done()
+LASBOOL LASwritePoint::done()
 {
   if (writers == writers_compressed)
   {
@@ -423,7 +423,7 @@ BOOL LASwritePoint::done()
   return TRUE;
 }
 
-BOOL LASwritePoint::add_chunk_to_table()
+LASBOOL LASwritePoint::add_chunk_to_table()
 {
   if (number_chunks == alloced_chunks)
   {
@@ -450,7 +450,7 @@ BOOL LASwritePoint::add_chunk_to_table()
   return TRUE;
 }
 
-BOOL LASwritePoint::write_chunk_table()
+LASBOOL LASwritePoint::write_chunk_table()
 {
   U32 i;
   I64 position = outstream->tell();

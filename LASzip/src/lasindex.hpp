@@ -61,26 +61,26 @@ public:
 
   // create spatial index
   void prepare(LASquadtree* spatial, I32 threshold=1000);
-  BOOL add(const F64 x, const F64 y, const U32 index);
-  void complete(U32 minimum_points=100000, I32 maximum_intervals=-1, const BOOL verbose=TRUE);
+  LASBOOL add(const F64 x, const F64 y, const U32 index);
+  void complete(U32 minimum_points=100000, I32 maximum_intervals=-1, const LASBOOL verbose=TRUE);
 
   // read from file or write to file
-  BOOL read(FILE* file);
-  BOOL write(FILE* file) const;
-  BOOL read(const char* file_name);
-  BOOL append(const char* file_name) const;
-  BOOL write(const char* file_name) const;
-  BOOL read(ByteStreamIn* stream);
-  BOOL write(ByteStreamOut* stream) const;
+  LASBOOL read(FILE* file);
+  LASBOOL write(FILE* file) const;
+  LASBOOL read(const char* file_name);
+  LASBOOL append(const char* file_name) const;
+  LASBOOL write(const char* file_name) const;
+  LASBOOL read(ByteStreamIn* stream);
+  LASBOOL write(ByteStreamOut* stream) const;
 
   // intersect
-  BOOL intersect_rectangle(const F64 r_min_x, const F64 r_min_y, const F64 r_max_x, const F64 r_max_y);
-  BOOL intersect_tile(const F32 ll_x, const F32 ll_y, const F32 size);
-  BOOL intersect_circle(const F64 center_x, const F64 center_y, const F64 radius);
+  LASBOOL intersect_rectangle(const F64 r_min_x, const F64 r_min_y, const F64 r_max_x, const F64 r_max_y);
+  LASBOOL intersect_tile(const F32 ll_x, const F32 ll_y, const F32 size);
+  LASBOOL intersect_circle(const F64 center_x, const F64 center_y, const F64 radius);
 
   // access the intersected intervals
-  BOOL get_intervals();
-  BOOL has_intervals();
+  LASBOOL get_intervals();
+  LASBOOL has_intervals();
 
   U32 start;
   U32 end;
@@ -92,22 +92,22 @@ public:
 #ifdef LASZIPDLL_EXPORTS
   BOOL seek_next(LASreadPoint* reader, I64 &p_count);
 #else
-  BOOL seek_next(LASreader* lasreader);
+  LASBOOL seek_next(LASreader* lasreader);
 #endif
 
   // for debugging
-  void print(BOOL verbose);
+  void print(LASBOOL verbose);
 
   // for visualization
   LASquadtree* get_spatial() const;
   LASinterval* get_interval() const;
 
 private:
-  BOOL merge_intervals();
+  LASBOOL merge_intervals();
 
   LASquadtree* spatial;
   LASinterval* interval;
-  BOOL have_interval;
+  LASBOOL have_interval;
 };
 
 #endif

@@ -43,20 +43,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-BOOL LASwriterLAS::refile(FILE* file)
+LASBOOL LASwriterLAS::refile(FILE* file)
 {
   if (stream == 0) return FALSE;
   if (this->file) this->file = file;
   return ((ByteStreamOutFile*)stream)->refile(file);
 }
 
-BOOL LASwriterLAS::open(const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
+LASBOOL LASwriterLAS::open(const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
 {
   ByteStreamOut* out = new ByteStreamOutNil();
   return open(out, header, compressor, requested_version, chunk_size);
 }
 
-BOOL LASwriterLAS::open(const char* file_name, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size, I32 io_buffer_size)
+LASBOOL LASwriterLAS::open(const char* file_name, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size, I32 io_buffer_size)
 {
   if (file_name == 0)
   {
@@ -100,7 +100,7 @@ BOOL LASwriterLAS::open(const char* file_name, const LASheader* header, U32 comp
   return open(out, header, compressor, requested_version, chunk_size);
 }
 
-BOOL LASwriterLAS::open(FILE* file, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
+LASBOOL LASwriterLAS::open(FILE* file, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
 {
   if (file == 0)
   {
@@ -127,7 +127,7 @@ BOOL LASwriterLAS::open(FILE* file, const LASheader* header, U32 compressor, I32
   return open(out, header, compressor, requested_version, chunk_size);
 }
 
-BOOL LASwriterLAS::open(std::ostream& stream, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
+LASBOOL LASwriterLAS::open(std::ostream& stream, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
 {
   ByteStreamOut* out;
   if (IS_LITTLE_ENDIAN())
@@ -138,7 +138,7 @@ BOOL LASwriterLAS::open(std::ostream& stream, const LASheader* header, U32 compr
   return open(out, header, compressor, requested_version, chunk_size);
 }
 
-BOOL LASwriterLAS::open(ByteStreamOut* stream, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
+LASBOOL LASwriterLAS::open(ByteStreamOut* stream, const LASheader* header, U32 compressor, I32 requested_version, I32 chunk_size)
 {
   U32 i, j;
 
@@ -172,7 +172,7 @@ BOOL LASwriterLAS::open(ByteStreamOut* stream, const LASheader* header, U32 comp
   LASpoint point;
   U8 point_data_format;
   U16 point_data_record_length;
-  BOOL point_is_standard = TRUE;
+  LASBOOL point_is_standard = TRUE;
 
   if (header->laszip)
   {
@@ -904,18 +904,18 @@ BOOL LASwriterLAS::open(ByteStreamOut* stream, const LASheader* header, U32 comp
   return TRUE;
 }
 
-BOOL LASwriterLAS::write_point(const LASpoint* point)
+LASBOOL LASwriterLAS::write_point(const LASpoint* point)
 {
   p_count++;
   return writer->write(point->point);
 }
 
-BOOL LASwriterLAS::chunk()
+LASBOOL LASwriterLAS::chunk()
 {
   return writer->chunk();
 }
 
-BOOL LASwriterLAS::update_header(const LASheader* header, BOOL use_inventory, BOOL update_extra_bytes)
+LASBOOL LASwriterLAS::update_header(const LASheader* header, LASBOOL use_inventory, LASBOOL update_extra_bytes)
 {
   I32 i;
   if (header == 0)
@@ -1219,7 +1219,7 @@ BOOL LASwriterLAS::update_header(const LASheader* header, BOOL use_inventory, BO
   return TRUE;
 }
 
-I64 LASwriterLAS::close(BOOL update_npoints)
+I64 LASwriterLAS::close(LASBOOL update_npoints)
 {
   I64 bytes = 0;
 

@@ -149,7 +149,7 @@ void LASreader::set_ignore(LASignore* ignore)
 	this->ignore = ignore;
 }
 
-BOOL LASreader::inside_none()
+LASBOOL LASreader::inside_none()
 {
 	if (filter || transform)
 	{
@@ -170,7 +170,7 @@ BOOL LASreader::inside_none()
 	return TRUE;
 }
 
-BOOL LASreader::inside_tile(const F32 ll_x, const F32 ll_y, const F32 size)
+LASBOOL LASreader::inside_tile(const F32 ll_x, const F32 ll_y, const F32 size)
 {
 	inside = 1;
 	t_ll_x = ll_x;
@@ -226,7 +226,7 @@ BOOL LASreader::inside_tile(const F32 ll_x, const F32 ll_y, const F32 size)
 	return TRUE;
 }
 
-BOOL LASreader::inside_circle(const F64 center_x, const F64 center_y, const F64 radius)
+LASBOOL LASreader::inside_circle(const F64 center_x, const F64 center_y, const F64 radius)
 {
 	inside = 2;
 	c_center_x = center_x;
@@ -279,7 +279,7 @@ BOOL LASreader::inside_circle(const F64 center_x, const F64 center_y, const F64 
 	return TRUE;
 }
 
-BOOL LASreader::inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y)
+LASBOOL LASreader::inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y)
 {
 	inside = 3;
 	r_min_x = min_x;
@@ -332,7 +332,7 @@ BOOL LASreader::inside_rectangle(const F64 min_x, const F64 min_y, const F64 max
 	return TRUE;
 }
 
-BOOL LASreader::read_point_inside_tile()
+LASBOOL LASreader::read_point_inside_tile()
 {
 	while (read_point_default())
 	{
@@ -341,7 +341,7 @@ BOOL LASreader::read_point_inside_tile()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_inside_tile_indexed()
+LASBOOL LASreader::read_point_inside_tile_indexed()
 {
 	while (index->seek_next((LASreader*)this))
 	{
@@ -350,7 +350,7 @@ BOOL LASreader::read_point_inside_tile_indexed()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_inside_circle()
+LASBOOL LASreader::read_point_inside_circle()
 {
 	while (read_point_default())
 	{
@@ -359,7 +359,7 @@ BOOL LASreader::read_point_inside_circle()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_inside_circle_indexed()
+LASBOOL LASreader::read_point_inside_circle_indexed()
 {
 	while (index->seek_next((LASreader*)this))
 	{
@@ -368,7 +368,7 @@ BOOL LASreader::read_point_inside_circle_indexed()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_inside_rectangle()
+LASBOOL LASreader::read_point_inside_rectangle()
 {
 	while (read_point_default())
 	{
@@ -377,7 +377,7 @@ BOOL LASreader::read_point_inside_rectangle()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_inside_rectangle_indexed()
+LASBOOL LASreader::read_point_inside_rectangle_indexed()
 {
 	while (index->seek_next((LASreader*)this))
 	{
@@ -386,12 +386,12 @@ BOOL LASreader::read_point_inside_rectangle_indexed()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_none()
+LASBOOL LASreader::read_point_none()
 {
 	return FALSE;
 }
 
-BOOL LASreader::read_point_filtered()
+LASBOOL LASreader::read_point_filtered()
 {
 	while ((this->*read_complex)())
 	{
@@ -400,7 +400,7 @@ BOOL LASreader::read_point_filtered()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_transformed()
+LASBOOL LASreader::read_point_transformed()
 {
 	if ((this->*read_complex)())
 	{
@@ -410,7 +410,7 @@ BOOL LASreader::read_point_transformed()
 	return FALSE;
 }
 
-BOOL LASreader::read_point_filtered_and_transformed()
+LASBOOL LASreader::read_point_filtered_and_transformed()
 {
 	if (read_point_filtered())
 	{
@@ -420,12 +420,12 @@ BOOL LASreader::read_point_filtered_and_transformed()
 	return FALSE;
 }
 
-BOOL LASreadOpener::is_piped() const
+LASBOOL LASreadOpener::is_piped() const
 {
 	return (!file_names && use_stdin);
 }
 
-BOOL LASreadOpener::is_inside() const
+LASBOOL LASreadOpener::is_inside() const
 {
 	return (inside_tile != 0 || inside_circle != 0 || inside_rectangle != 0);
 }
@@ -512,12 +512,12 @@ I32 LASreadOpener::unparse(CHAR* string) const
 	return n;
 }
 
-BOOL LASreadOpener::is_buffered() const
+LASBOOL LASreadOpener::is_buffered() const
 {
 	return ((buffer_size > 0) && ((file_name_number > 1) || (neighbor_file_name_number > 0)));
 }
 
-BOOL LASreadOpener::is_header_populated() const
+LASBOOL LASreadOpener::is_header_populated() const
 {
 	return (populate_header || (file_name && (strstr(file_name, ".las") || strstr(file_name, ".laz") || strstr(file_name, ".LAS") || strstr(file_name, ".LAZ"))));
 }
@@ -528,7 +528,7 @@ void LASreadOpener::reset()
 	file_name = 0;
 }
 
-LASreader* LASreadOpener::open(const CHAR* other_file_name, BOOL reset_after_other)
+LASreader* LASreadOpener::open(const CHAR* other_file_name, LASBOOL reset_after_other)
 {
 	if (filter) filter->reset();
 	if (transform) transform->reset();
@@ -1456,7 +1456,7 @@ LASreader* LASreadOpener::open(const CHAR* other_file_name, BOOL reset_after_oth
 	}
 }
 
-BOOL LASreadOpener::reopen(LASreader* lasreader, BOOL remain_buffered)
+LASBOOL LASreadOpener::reopen(LASreader* lasreader, LASBOOL remain_buffered)
 {
 	if (lasreader == 0)
 	{
@@ -1722,7 +1722,7 @@ void LASreadOpener::usage() const
 	fprintf(stderr, "  -inside_circle center_x center_y radius\n");
 }
 
-BOOL LASreadOpener::parse(int argc, char* argv[], BOOL parse_ignore)
+LASBOOL LASreadOpener::parse(int argc, char* argv[], LASBOOL parse_ignore)
 {
 	int i;
 	for (i = 1; i < argc; i++)
@@ -2643,12 +2643,12 @@ CHAR* LASreadOpener::get_file_name_base(U32 number) const
 	return file_name_base;
 }
 
-void LASreadOpener::set_merged(const BOOL merged)
+void LASreadOpener::set_merged(const LASBOOL merged)
 {
 	this->merged = merged;
 }
 
-void LASreadOpener::set_stored(const BOOL stored)
+void LASreadOpener::set_stored(const LASBOOL stored)
 {
 	this->stored = stored;
 }
@@ -2673,7 +2673,7 @@ void LASreadOpener::set_transform(LAStransform* transform)
 	this->transform = transform;
 }
 
-void LASreadOpener::set_auto_reoffset(const BOOL auto_reoffset)
+void LASreadOpener::set_auto_reoffset(const LASBOOL auto_reoffset)
 {
 	this->auto_reoffset = auto_reoffset;
 }
@@ -2704,7 +2704,7 @@ void LASreadOpener::set_files_are_flightlines_index(const I32 files_are_flightli
 	}
 }
 
-void LASreadOpener::set_apply_file_source_ID(const BOOL apply_file_source_ID)
+void LASreadOpener::set_apply_file_source_ID(const LASBOOL apply_file_source_ID)
 {
 	this->apply_file_source_ID = apply_file_source_ID;
 }
@@ -2714,16 +2714,16 @@ void LASreadOpener::set_io_ibuffer_size(const U32 buffer_size)
 	this->io_ibuffer_size = buffer_size;
 }
 
-void LASreadOpener::set_file_name(const CHAR* file_name, BOOL unique)
+void LASreadOpener::set_file_name(const CHAR* file_name, LASBOOL unique)
 {
 	add_file_name(file_name, unique);
 }
 
 #ifdef _WIN32
 #include <windows.h>
-BOOL LASreadOpener::add_file_name(const CHAR* file_name, BOOL unique)
+LASBOOL LASreadOpener::add_file_name(const CHAR* file_name, LASBOOL unique)
 {
-	BOOL r = FALSE;
+	LASBOOL r = FALSE;
 	HANDLE h;
 	WIN32_FIND_DATA info;
 	h = FindFirstFile(file_name, &info);
@@ -2757,9 +2757,9 @@ BOOL LASreadOpener::add_file_name(const CHAR* file_name, BOOL unique)
 #endif
 
 #ifdef _WIN32
-BOOL LASreadOpener::add_file_name_single(const CHAR* file_name, BOOL unique)
+LASBOOL LASreadOpener::add_file_name_single(const CHAR* file_name, LASBOOL unique)
 #else
-BOOL LASreadOpener::add_file_name(const CHAR* file_name, BOOL unique)
+LASBOOL LASreadOpener::add_file_name(const CHAR* file_name, LASBOOL unique)
 #endif
 {
 	if (unique)
@@ -2795,7 +2795,7 @@ BOOL LASreadOpener::add_file_name(const CHAR* file_name, BOOL unique)
 	return TRUE;
 }
 
-BOOL LASreadOpener::add_file_name(const CHAR* file_name, U32 ID, BOOL unique)
+LASBOOL LASreadOpener::add_file_name(const CHAR* file_name, U32 ID, LASBOOL unique)
 {
 	if (unique)
 	{
@@ -2839,7 +2839,7 @@ BOOL LASreadOpener::add_file_name(const CHAR* file_name, U32 ID, BOOL unique)
 	return TRUE;
 }
 
-BOOL LASreadOpener::add_file_name(const CHAR* file_name, U32 ID, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, BOOL unique)
+LASBOOL LASreadOpener::add_file_name(const CHAR* file_name, U32 ID, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, LASBOOL unique)
 {
 	if (unique)
 	{
@@ -2934,7 +2934,7 @@ BOOL LASreadOpener::add_file_name(const CHAR* file_name, U32 ID, I64 npoints, F6
 	return TRUE;
 }
 
-BOOL LASreadOpener::add_list_of_files(const CHAR* list_of_files, BOOL unique)
+LASBOOL LASreadOpener::add_list_of_files(const CHAR* list_of_files, LASBOOL unique)
 {
 	FILE* file = fopen(list_of_files, "r");
 	if (file == 0)
@@ -3012,7 +3012,7 @@ BOOL LASreadOpener::add_list_of_files(const CHAR* list_of_files, BOOL unique)
 	return TRUE;
 }
 
-BOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, BOOL unique)
+LASBOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, LASBOOL unique)
 {
 	if (unique)
 	{
@@ -3094,7 +3094,7 @@ BOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, I64 n
 	return TRUE;
 }
 
-BOOL LASreadOpener::add_neighbor_list_of_files(const CHAR* neighbor_list_of_files, BOOL unique)
+LASBOOL LASreadOpener::add_neighbor_list_of_files(const CHAR* neighbor_list_of_files, LASBOOL unique)
 {
 	FILE* file = fopen(neighbor_list_of_files, "r");
 	if (file == 0)
@@ -3173,7 +3173,7 @@ void LASreadOpener::delete_file_name(U32 file_name_id)
 	file_name_number--;
 }
 
-BOOL LASreadOpener::set_file_name_current(U32 file_name_id)
+LASBOOL LASreadOpener::set_file_name_current(U32 file_name_id)
 {
 	if (file_name_id < file_name_number)
 	{
@@ -3186,9 +3186,9 @@ BOOL LASreadOpener::set_file_name_current(U32 file_name_id)
 
 #ifdef _WIN32
 #include <windows.h>
-BOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, BOOL unique)
+LASBOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, LASBOOL unique)
 {
-	BOOL r = FALSE;
+	LASBOOL r = FALSE;
 	HANDLE h;
 	WIN32_FIND_DATA info;
 	h = FindFirstFile(neighbor_file_name, &info);
@@ -3222,9 +3222,9 @@ BOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, BOOL 
 #endif
 
 #ifdef _WIN32
-BOOL LASreadOpener::add_neighbor_file_name_single(const CHAR* neighbor_file_name, BOOL unique)
+LASBOOL LASreadOpener::add_neighbor_file_name_single(const CHAR* neighbor_file_name, LASBOOL unique)
 #else
-BOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, BOOL unique)
+LASBOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, LASBOOL unique)
 #endif
 {
 	if (unique)
@@ -3260,7 +3260,7 @@ BOOL LASreadOpener::add_neighbor_file_name(const CHAR* neighbor_file_name, BOOL 
 	return TRUE;
 }
 
-BOOL LASreadOpener::set_point_type(U8 point_type)
+LASBOOL LASreadOpener::set_point_type(U8 point_type)
 {
 	if (point_type > 10)
 	{
@@ -3363,17 +3363,17 @@ void LASreadOpener::set_skip_lines(const U32 number_of_lines)
 	this->skip_lines = number_of_lines;
 }
 
-void LASreadOpener::set_populate_header(BOOL populate_header)
+void LASreadOpener::set_populate_header(LASBOOL populate_header)
 {
 	this->populate_header = populate_header;
 }
 
-void LASreadOpener::set_keep_lastiling(BOOL keep_lastiling)
+void LASreadOpener::set_keep_lastiling(LASBOOL keep_lastiling)
 {
 	this->keep_lastiling = keep_lastiling;
 }
 
-void LASreadOpener::set_pipe_on(BOOL pipe_on)
+void LASreadOpener::set_pipe_on(LASBOOL pipe_on)
 {
 	this->pipe_on = pipe_on;
 }
@@ -3420,7 +3420,7 @@ void LASreadOpener::set_inside_rectangle(const F64 min_x, const F64 min_y, const
 	inside_rectangle[3] = max_y;
 }
 
-BOOL LASreadOpener::active() const
+LASBOOL LASreadOpener::active() const
 {
 	return ((file_name_current < file_name_number) || use_stdin);
 }

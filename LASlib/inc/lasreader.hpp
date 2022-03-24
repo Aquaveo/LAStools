@@ -71,7 +71,7 @@ public:
 	LASTransformMatrix transform_matrix;
 
 	virtual I32 get_format() const = 0;
-	virtual BOOL has_layers() const { return FALSE; };
+	virtual LASBOOL has_layers() const { return FALSE; };
 
 	void set_index(LASindex* index);
 	inline LASindex* get_index() const { return index; };
@@ -83,25 +83,25 @@ public:
 	inline LASignore* get_ignore() const { return ignore; };
 
 	inline U32 get_inside() const { return inside; };
-	virtual BOOL inside_none();
-	virtual BOOL inside_tile(const F32 ll_x, const F32 ll_y, const F32 size);
+	virtual LASBOOL inside_none();
+	virtual LASBOOL inside_tile(const F32 ll_x, const F32 ll_y, const F32 size);
 	inline F32 get_t_ll_x() const { return t_ll_x; };
 	inline F32 get_t_ll_y() const { return t_ll_y; };
 	inline F32 get_t_size() const { return t_size; };
-	virtual BOOL inside_circle(const F64 center_x, const F64 center_y, const F64 radius);
+	virtual LASBOOL inside_circle(const F64 center_x, const F64 center_y, const F64 radius);
 	inline F64 get_c_center_x() const { return c_center_x; };
 	inline F64 get_c_center_y() const { return c_center_y; };
 	inline F64 get_c_radius() const { return c_radius; };
-	virtual BOOL inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y);
+	virtual LASBOOL inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y);
 	inline F64 get_r_min_x() const { return r_min_x; };
 	inline F64 get_r_min_y() const { return r_min_y; };
 	inline F64 get_r_max_x() const { return r_max_x; };
 	inline F64 get_r_max_y() const { return r_max_y; };
 
-	virtual BOOL seek(const I64 p_index) = 0;
-	BOOL read_point() { return (this->*read_simple)(); };
+	virtual LASBOOL seek(const I64 p_index) = 0;
+	LASBOOL read_point() { return (this->*read_simple)(); };
 
-	inline BOOL ignore_point() { return (ignore ? ignore->ignore(&point) : FALSE); };
+	inline LASBOOL ignore_point() { return (ignore ? ignore->ignore(&point) : FALSE); };
 
 	inline void compute_coordinates() { point.compute_coordinates(); };
 
@@ -126,7 +126,7 @@ public:
 	inline I64 get_Z(const F64 z) const { return header.get_Z(z); };
 
 	virtual ByteStreamIn* get_stream() const = 0;
-	virtual void close(BOOL close_stream = TRUE) = 0;
+	virtual void close(LASBOOL close_stream = TRUE) = 0;
 
 	LASreader();
 	virtual ~LASreader();
@@ -134,7 +134,7 @@ public:
 	void dealloc();
 
 protected:
-	virtual BOOL read_point_default() = 0;
+	virtual LASBOOL read_point_default() = 0;
 
 	LASindex* index;
 	LASfilter* filter;
@@ -148,20 +148,20 @@ protected:
 	F64 orig_min_x, orig_min_y, orig_max_x, orig_max_y;
 
 private:
-	BOOL(LASreader::*read_simple)();
-	BOOL(LASreader::*read_complex)();
+	LASBOOL(LASreader::*read_simple)();
+	LASBOOL(LASreader::*read_complex)();
 
-	BOOL read_point_none();
-	BOOL read_point_filtered();
-	BOOL read_point_transformed();
-	BOOL read_point_filtered_and_transformed();
+	LASBOOL read_point_none();
+	LASBOOL read_point_filtered();
+	LASBOOL read_point_transformed();
+	LASBOOL read_point_filtered_and_transformed();
 
-	BOOL read_point_inside_tile();
-	BOOL read_point_inside_tile_indexed();
-	BOOL read_point_inside_circle();
-	BOOL read_point_inside_circle_indexed();
-	BOOL read_point_inside_rectangle();
-	BOOL read_point_inside_rectangle_indexed();
+	LASBOOL read_point_inside_tile();
+	LASBOOL read_point_inside_tile_indexed();
+	LASBOOL read_point_inside_circle();
+	LASBOOL read_point_inside_circle_indexed();
+	LASBOOL read_point_inside_rectangle();
+	LASBOOL read_point_inside_rectangle_indexed();
 };
 
 #include "laswaveform13reader.hpp"
@@ -181,29 +181,29 @@ public:
 	const CHAR* get_file_extension_only(U32 number) const;
 	CHAR* get_file_name_base() const;
 	CHAR* get_file_name_base(U32 number) const;
-	void set_file_name(const CHAR* file_name, BOOL unique = FALSE);
-	BOOL add_file_name(const CHAR* file_name, BOOL unique = FALSE);
-	BOOL add_list_of_files(const CHAR* list_of_files, BOOL unique = FALSE);
+	void set_file_name(const CHAR* file_name, LASBOOL unique = FALSE);
+	LASBOOL add_file_name(const CHAR* file_name, LASBOOL unique = FALSE);
+	LASBOOL add_list_of_files(const CHAR* list_of_files, LASBOOL unique = FALSE);
 	void delete_file_name(U32 file_name_id);
-	BOOL set_file_name_current(U32 file_name_id);
+	LASBOOL set_file_name_current(U32 file_name_id);
 	I32 get_file_format(U32 number) const;
-	void set_merged(const BOOL merged);
-	BOOL is_merged() const { return merged; };
-	void set_stored(const BOOL stored);
-	BOOL is_stored() const { return stored; };
+	void set_merged(const LASBOOL merged);
+	LASBOOL is_merged() const { return merged; };
+	void set_stored(const LASBOOL stored);
+	LASBOOL is_stored() const { return stored; };
 	void set_buffer_size(const F32 buffer_size);
 	F32 get_buffer_size() const;
-	BOOL add_neighbor_file_name(const CHAR* neighbor_file_name, BOOL unique = FALSE);
-	BOOL add_neighbor_file_name(const CHAR* file_name, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, BOOL unique = FALSE);
-	BOOL add_neighbor_list_of_files(const CHAR* list_of_files, BOOL unique = FALSE);
-	void set_auto_reoffset(const BOOL auto_reoffset);
-	inline BOOL is_auto_reoffset() const { return auto_reoffset; };
+	LASBOOL add_neighbor_file_name(const CHAR* neighbor_file_name, LASBOOL unique = FALSE);
+	LASBOOL add_neighbor_file_name(const CHAR* file_name, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, LASBOOL unique = FALSE);
+	LASBOOL add_neighbor_list_of_files(const CHAR* list_of_files, LASBOOL unique = FALSE);
+	void set_auto_reoffset(const LASBOOL auto_reoffset);
+	inline LASBOOL is_auto_reoffset() const { return auto_reoffset; };
 	void set_files_are_flightlines(const I32 files_are_flightlines);
 	inline I32 are_files_flightlines() const { return files_are_flightlines; };
 	void set_files_are_flightlines_index(const I32 files_are_flightlines_index);
 	inline I32 get_files_flight_index() const { return files_are_flightlines_index; };
-	void set_apply_file_source_ID(const BOOL apply_file_source_ID);
-	inline BOOL applying_file_source_ID() const { return apply_file_source_ID; };
+	void set_apply_file_source_ID(const LASBOOL apply_file_source_ID);
+	inline LASBOOL applying_file_source_ID() const { return apply_file_source_ID; };
 	void set_scale_factor(const F64* scale_factor);
 	inline const F64* get_scale_factor() const { return scale_factor; };
 	void set_offset(const F64* offset);
@@ -213,24 +213,24 @@ public:
 	void set_translate_scan_angle(const F32 translate_scan_angle);
 	void set_scale_scan_angle(const F32 scale_scan_angle);
 	void add_attribute(I32 data_type, const CHAR* name, const CHAR* description = 0, F64 scale = 1.0, F64 offset = 0.0, F64 pre_scale = 1.0, F64 pre_offset = 0.0, F64 no_data = F64_MAX);
-	BOOL set_point_type(U8 point_type);
+	LASBOOL set_point_type(U8 point_type);
 	void set_parse_string(const CHAR* parse_string);
 	void set_skip_lines(const U32 number_of_lines);
-	void set_populate_header(BOOL populate_header);
-	void set_keep_lastiling(BOOL keep_lastiling);
-	void set_pipe_on(BOOL pipe_on);
+	void set_populate_header(LASBOOL populate_header);
+	void set_keep_lastiling(LASBOOL keep_lastiling);
+	void set_pipe_on(LASBOOL pipe_on);
 	const CHAR* get_parse_string() const;
 	void usage() const;
 	void set_decompress_selective(U32 decompress_selective);
 	void set_inside_tile(const F32 ll_x, const F32 ll_y, const F32 size);
 	void set_inside_circle(const F64 center_x, const F64 center_y, const F64 radius);
 	void set_inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y);
-	BOOL parse(int argc, char* argv[], BOOL parse_ignore = FALSE);
-	BOOL is_piped() const;
-	BOOL is_buffered() const;
-	BOOL is_header_populated() const;
-	BOOL active() const;
-	BOOL is_inside() const;
+	LASBOOL parse(int argc, char* argv[], LASBOOL parse_ignore = FALSE);
+	LASBOOL is_piped() const;
+	LASBOOL is_buffered() const;
+	LASBOOL is_header_populated() const;
+	LASBOOL active() const;
+	LASBOOL is_inside() const;
 	I32 unparse(CHAR* string) const;
 	void set_filter(LASfilter* filter);
 	inline LASfilter* get_filter() { return filter; };
@@ -240,8 +240,8 @@ public:
 	inline LASignore* get_ignore() { return ignore; };
 	void reset();
 	const CHAR* get_temp_file_base() const { return temp_file_base; };
-	LASreader* open(const CHAR* other_file_name = 0, BOOL reset_after_other = TRUE);
-	BOOL reopen(LASreader* lasreader, BOOL remain_buffered = TRUE);
+	LASreader* open(const CHAR* other_file_name = 0, LASBOOL reset_after_other = TRUE);
+	LASBOOL reopen(LASreader* lasreader, LASBOOL remain_buffered = TRUE);
 	LASwaveform13reader* open_waveform13(const LASheader* lasheader);
 	I32 get_number_attributes() const { return number_attributes; };
 	I32 get_attribute_data_type(U32 index) const { return attribute_data_types[index]; };
@@ -254,15 +254,15 @@ public:
 	~LASreadOpener();
 private:
 #ifdef _WIN32
-	BOOL add_file_name_single(const CHAR* file_name, BOOL unique = FALSE);
-	BOOL add_neighbor_file_name_single(const CHAR* neighbor_file_name, BOOL unique = FALSE);
+	LASBOOL add_file_name_single(const CHAR* file_name, LASBOOL unique = FALSE);
+	LASBOOL add_neighbor_file_name_single(const CHAR* neighbor_file_name, LASBOOL unique = FALSE);
 #endif
-	BOOL add_file_name(const CHAR* file_name, U32 ID, BOOL unique);
-	BOOL add_file_name(const CHAR* file_name, U32 ID, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, BOOL unique = FALSE);
+	LASBOOL add_file_name(const CHAR* file_name, U32 ID, LASBOOL unique);
+	LASBOOL add_file_name(const CHAR* file_name, U32 ID, I64 npoints, F64 min_x, F64 min_y, F64 max_x, F64 max_y, LASBOOL unique = FALSE);
 	U32 io_ibuffer_size;
 	const CHAR* file_name;
-	BOOL merged;
-	BOOL stored;
+	LASBOOL merged;
+	LASBOOL stored;
 	U32 file_name_current;
 	CHAR** file_names;
 	U32 file_name_number;
@@ -285,17 +285,17 @@ private:
 	F64* neighbor_file_names_max_x;
 	F64* neighbor_file_names_max_y;
 	LASkdtreeRectangles* neighbor_kdtree_rectangles;
-	BOOL comma_not_point;
+	LASBOOL comma_not_point;
 	F64* scale_factor;
 	F64* offset;
-	BOOL auto_reoffset;
+	LASBOOL auto_reoffset;
 	I32 files_are_flightlines;
 	I32 files_are_flightlines_index;
-	BOOL apply_file_source_ID;
-	BOOL itxt;
-	BOOL ipts;
-	BOOL iptx;
-	BOOL iptx_transform;
+	LASBOOL apply_file_source_ID;
+	LASBOOL itxt;
+	LASBOOL ipts;
+	LASBOOL iptx;
+	LASBOOL iptx_transform;
 	F32 translate_intensity;
 	F32 scale_intensity;
 	F32 translate_scan_angle;
@@ -312,11 +312,11 @@ private:
 	U8 point_type;
 	CHAR* parse_string;
 	U32 skip_lines;
-	BOOL populate_header;
-	BOOL keep_lastiling;
-	BOOL pipe_on;
-	BOOL use_stdin;
-	BOOL unique;
+	LASBOOL populate_header;
+	LASBOOL keep_lastiling;
+	LASBOOL pipe_on;
+	LASBOOL use_stdin;
+	LASBOOL unique;
 
 	// optional extras
 	LASindex* index;

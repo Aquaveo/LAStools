@@ -404,7 +404,7 @@ U32 LASquadtree::get_cell_index(const F64 x, const F64 y) const
 }
 
 // returns the indices of parent and siblings for the specified cell index
-BOOL LASquadtree::coarsen(const I32 cell_index, I32* coarser_cell_index, U32* num_cell_indices, I32** cell_indices)
+LASBOOL LASquadtree::coarsen(const I32 cell_index, I32* coarser_cell_index, U32* num_cell_indices, I32** cell_indices)
 {
   if (cell_index < 0) return FALSE;
   U32 level = get_level((U32)cell_index);
@@ -496,7 +496,7 @@ U32 LASquadtree::get_max_cell_index() const
 }
 
 // recursively does the actual rastering of the occupancy
-void LASquadtree::raster_occupancy(BOOL(*does_cell_exist)(I32), U32* data, U32 min_x, U32 min_y, U32 level_index, U32 level, U32 stop_level) const
+void LASquadtree::raster_occupancy(LASBOOL(*does_cell_exist)(I32), U32* data, U32 min_x, U32 min_y, U32 level_index, U32 level, U32 stop_level) const
 {
   U32 cell_index = get_cell_index(level_index, level);
   U32 adaptive_pos = cell_index/32;
@@ -553,7 +553,7 @@ void LASquadtree::raster_occupancy(BOOL(*does_cell_exist)(I32), U32* data, U32 m
 }
 
 // rasters the occupancy to a simple binary raster at depth level
-U32* LASquadtree::raster_occupancy(BOOL(*does_cell_exist)(I32), U32 level) const
+U32* LASquadtree::raster_occupancy(LASBOOL(*does_cell_exist)(I32), U32 level) const
 {
   U32 size_xy = (1<<level);
   U32 temp_size = (size_xy*size_xy)/32 + ((size_xy*size_xy) % 32 ? 1 : 0);
@@ -567,13 +567,13 @@ U32* LASquadtree::raster_occupancy(BOOL(*does_cell_exist)(I32), U32 level) const
 }
 
 // rasters the occupancy to a simple binary raster at depth levels
-U32* LASquadtree::raster_occupancy(BOOL(*does_cell_exist)(I32)) const
+U32* LASquadtree::raster_occupancy(LASBOOL(*does_cell_exist)(I32)) const
 {
   return raster_occupancy(does_cell_exist, levels);
 }
 
 // read from file
-BOOL LASquadtree::read(ByteStreamIn* stream)
+LASBOOL LASquadtree::read(ByteStreamIn* stream)
 {
   // read data in the following order
   //     U32  levels          4 bytes 
@@ -667,7 +667,7 @@ BOOL LASquadtree::read(ByteStreamIn* stream)
   return TRUE;
 }
 
-BOOL LASquadtree::write(ByteStreamOut* stream) const
+LASBOOL LASquadtree::write(ByteStreamOut* stream) const
 {
   // which totals 28 bytes
   //     U32  levels          4 bytes 
@@ -746,7 +746,7 @@ BOOL LASquadtree::write(ByteStreamOut* stream) const
 }
 
 // create or finalize the cell (in the spatial hierarchy) 
-BOOL LASquadtree::manage_cell(const U32 cell_index, const BOOL finalize)
+LASBOOL LASquadtree::manage_cell(const U32 cell_index, const LASBOOL finalize)
 {
   U32 adaptive_pos = cell_index/32;
   U32 adaptive_bit = ((U32)1) << (cell_index%32);
@@ -783,7 +783,7 @@ BOOL LASquadtree::manage_cell(const U32 cell_index, const BOOL finalize)
 }
 
 // check whether the x & y coordinates fall into the tiling
-BOOL LASquadtree::inside(const F64 x, const F64 y) const
+LASBOOL LASquadtree::inside(const F64 x, const F64 y) const
 {
   return ((min_x <= x) && (x < max_x) && (min_y <= y) && (y < max_y));
 }
@@ -1408,7 +1408,7 @@ void LASquadtree::intersect_circle_with_cells_adaptive(const F64 center_x, const
   }
 }
 
-BOOL LASquadtree::intersect_circle_with_rectangle(const F64 center_x, const F64 center_y, const F64 radius, const F32 r_min_x, const F32 r_max_x, const F32 r_min_y, const F32 r_max_y)
+LASBOOL LASquadtree::intersect_circle_with_rectangle(const F64 center_x, const F64 center_y, const F64 radius, const F32 r_min_x, const F32 r_max_x, const F32 r_min_y, const F32 r_max_y)
 {
   F64 r_diff_x, r_diff_y;
   F64 radius_squared = radius * radius;
@@ -1467,13 +1467,13 @@ BOOL LASquadtree::intersect_circle_with_rectangle(const F64 center_x, const F64 
   }
 }
 
-BOOL LASquadtree::get_all_cells()
+LASBOOL LASquadtree::get_all_cells()
 {
   intersect_rectangle(min_x, min_y, max_x, max_y);
   return get_intersected_cells();
 }
 
-BOOL LASquadtree::get_intersected_cells()
+LASBOOL LASquadtree::get_intersected_cells()
 {
   next_cell_index = 0;
   if (current_cells == 0)
@@ -1487,7 +1487,7 @@ BOOL LASquadtree::get_intersected_cells()
   return TRUE;
 }
 
-BOOL LASquadtree::has_more_cells()
+LASBOOL LASquadtree::has_more_cells()
 {
   if (current_cells == 0)
   {
@@ -1509,7 +1509,7 @@ BOOL LASquadtree::has_more_cells()
   return TRUE;
 }
 
-BOOL LASquadtree::setup(F64 bb_min_x, F64 bb_max_x, F64 bb_min_y, F64 bb_max_y, F32 cell_size)
+LASBOOL LASquadtree::setup(F64 bb_min_x, F64 bb_max_x, F64 bb_min_y, F64 bb_max_y, F32 cell_size)
 {
   this->cell_size = cell_size;
   this->sub_level = 0;
@@ -1560,7 +1560,7 @@ BOOL LASquadtree::setup(F64 bb_min_x, F64 bb_max_x, F64 bb_min_y, F64 bb_max_y, 
   return TRUE;
 }
 
-BOOL LASquadtree::setup(F64 bb_min_x, F64 bb_max_x, F64 bb_min_y, F64 bb_max_y, F32 cell_size, F32 offset_x, F32 offset_y)
+LASBOOL LASquadtree::setup(F64 bb_min_x, F64 bb_max_x, F64 bb_min_y, F64 bb_max_y, F32 cell_size, F32 offset_x, F32 offset_y)
 {
   this->cell_size = cell_size;
   this->sub_level = 0;
@@ -1611,7 +1611,7 @@ BOOL LASquadtree::setup(F64 bb_min_x, F64 bb_max_x, F64 bb_min_y, F64 bb_max_y, 
   return TRUE;
 }
 
-BOOL LASquadtree::tiling_setup(F32 min_x, F32 max_x, F32 min_y, F32 max_y, U32 levels)
+LASBOOL LASquadtree::tiling_setup(F32 min_x, F32 max_x, F32 min_y, F32 max_y, U32 levels)
 {
   this->min_x = min_x;
   this->max_x = max_x;
@@ -1623,7 +1623,7 @@ BOOL LASquadtree::tiling_setup(F32 min_x, F32 max_x, F32 min_y, F32 max_y, U32 l
   return TRUE;
 }
 
-BOOL LASquadtree::subtiling_setup(F32 min_x, F32 max_x, F32 min_y, F32 max_y, U32 sub_level, U32 sub_level_index, U32 levels)
+LASBOOL LASquadtree::subtiling_setup(F32 min_x, F32 max_x, F32 min_y, F32 max_y, U32 sub_level, U32 sub_level_index, U32 levels)
 {
   this->min_x = min_x;
   this->max_x = max_x;

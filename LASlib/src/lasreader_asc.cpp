@@ -41,7 +41,7 @@
 
 extern "C" FILE* fopen_compressed(const char* filename, const char* mode, bool* piped);
 
-BOOL LASreaderASC::open(const CHAR* file_name, BOOL comma_not_point)
+LASBOOL LASreaderASC::open(const CHAR* file_name, LASBOOL comma_not_point)
 {
   if (file_name == 0)
   {
@@ -106,7 +106,7 @@ BOOL LASreaderASC::open(const CHAR* file_name, BOOL comma_not_point)
   }
 
   CHAR dummy[32];
-  BOOL complete = FALSE;
+  LASBOOL complete = FALSE;
   ncols = 0;
   nrows = 0;
   F64 xllcorner = F64_MAX;
@@ -372,12 +372,12 @@ void LASreaderASC::set_offset(const F64* offset)
   }
 }
 
-BOOL LASreaderASC::seek(const I64 p_index)
+LASBOOL LASreaderASC::seek(const I64 p_index)
 {
   return FALSE;
 }
 
-BOOL LASreaderASC::read_point_default()
+LASBOOL LASreaderASC::read_point_default()
 {
   F64 elevation;
   while (p_count < npoints)
@@ -453,7 +453,7 @@ ByteStreamIn* LASreaderASC::get_stream() const
   return 0;
 }
 
-void LASreaderASC::close(BOOL close_stream)
+void LASreaderASC::close(LASBOOL close_stream)
 {
   if (overflow_I32_x)
   {
@@ -490,7 +490,7 @@ void LASreaderASC::close(BOOL close_stream)
   }
 }
 
-BOOL LASreaderASC::reopen(const CHAR* file_name)
+LASBOOL LASreaderASC::reopen(const CHAR* file_name)
 {
   if (file_name == 0)
   {
@@ -719,7 +719,7 @@ LASreaderASCrescale::LASreaderASCrescale(F64 x_scale_factor, F64 y_scale_factor,
   scale_factor[2] = z_scale_factor;
 }
 
-BOOL LASreaderASCrescale::open(const CHAR* file_name, BOOL comma_not_point)
+LASBOOL LASreaderASCrescale::open(const CHAR* file_name, LASBOOL comma_not_point)
 {
   LASreaderASC::set_scale_factor(scale_factor);
   if (!LASreaderASC::open(file_name, comma_not_point)) return FALSE;
@@ -733,7 +733,7 @@ LASreaderASCreoffset::LASreaderASCreoffset(F64 x_offset, F64 y_offset, F64 z_off
   this->offset[2] = z_offset;
 }
 
-BOOL LASreaderASCreoffset::open(const CHAR* file_name, BOOL comma_not_point)
+LASBOOL LASreaderASCreoffset::open(const CHAR* file_name, LASBOOL comma_not_point)
 {
   LASreaderASC::set_offset(offset);
   if (!LASreaderASC::open(file_name, comma_not_point)) return FALSE;
@@ -744,7 +744,7 @@ LASreaderASCrescalereoffset::LASreaderASCrescalereoffset(F64 x_scale_factor, F64
 {
 }
 
-BOOL LASreaderASCrescalereoffset::open(const CHAR* file_name, BOOL comma_not_point)
+LASBOOL LASreaderASCrescalereoffset::open(const CHAR* file_name, LASBOOL comma_not_point)
 {
   LASreaderASC::set_scale_factor(scale_factor);
   LASreaderASC::set_offset(offset);

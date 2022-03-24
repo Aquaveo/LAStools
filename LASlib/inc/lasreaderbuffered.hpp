@@ -51,43 +51,43 @@ public:
   void set_scale_scan_angle(F32 scale_scan_angle);
   void set_parse_string(const CHAR* parse_string);
   void set_skip_lines(I32 skip_lines);
-  void set_populate_header(BOOL populate_header);
+  void set_populate_header(LASBOOL populate_header);
 
-  BOOL set_file_name(const CHAR* file_name);
-  BOOL add_neighbor_file_name(const CHAR* file_name);
+  LASBOOL set_file_name(const CHAR* file_name);
+  LASBOOL add_neighbor_file_name(const CHAR* file_name);
   void set_buffer_size(const F32 buffer_size);
 
-  BOOL remove_buffer();
+  LASBOOL remove_buffer();
 
-  BOOL open();
-  BOOL reopen();
+  LASBOOL open();
+  LASBOOL reopen();
 
   void set_filter(LASfilter* filter);
   void set_transform(LAStransform* transform);
 
-  BOOL inside_tile(const F32 ll_x, const F32 ll_y, const F32 size);
-  BOOL inside_circle(const F64 center_x, const F64 center_y, const F64 radius);
-  BOOL inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y);
+  LASBOOL inside_tile(const F32 ll_x, const F32 ll_y, const F32 size);
+  LASBOOL inside_circle(const F64 center_x, const F64 center_y, const F64 radius);
+  LASBOOL inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y);
 
   I32 get_format() const;
 
-  BOOL seek(const I64 p_index){ return FALSE; };
+  LASBOOL seek(const I64 p_index){ return FALSE; };
 
   ByteStreamIn* get_stream() const { return 0; };
-  void close(BOOL close_stream=TRUE);
+  void close(LASBOOL close_stream=TRUE);
 
   LASreaderBuffered();
   ~LASreaderBuffered();
 
 protected:
-  BOOL read_point_default();
+  LASBOOL read_point_default();
 
 private:
   void clean();
 
   void clean_buffer();
-  BOOL copy_point_to_buffer();
-  BOOL copy_point_from_buffer();
+  LASBOOL copy_point_to_buffer();
+  LASBOOL copy_point_from_buffer();
   U32 get_number_buffered_points() const;
 
   const U32 points_per_buffer;
@@ -102,10 +102,10 @@ private:
   LASreadOpener lasreadopener_neighbors;
   LASreader* lasreader;
   F32 buffer_size;
-  BOOL point_type_change;
-  BOOL point_size_change;
-  BOOL rescale;
-  BOOL reoffset;
+  LASBOOL point_type_change;
+  LASBOOL point_size_change;
+  LASBOOL rescale;
+  LASBOOL reoffset;
   F64* scale_factor;
   F64* offset;
 };

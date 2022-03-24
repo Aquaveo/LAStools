@@ -50,7 +50,7 @@ public:
   F64 max[2];
   U32 idx;
 
-  BOOL overlap(const LASkdtreeRectangle &rectangle) const;
+  LASBOOL overlap(const LASkdtreeRectangle &rectangle) const;
 
   LASkdtreeRectangle();
   LASkdtreeRectangle(F64 min_x, F64 min_y, F64 max_x, F64 max_y);
@@ -62,7 +62,7 @@ class LASkdtreePoint
 public:
   F64 pos[2];
 
-  BOOL overlap(const LASkdtreeRectangle &rectangle) const;
+  LASBOOL overlap(const LASkdtreeRectangle &rectangle) const;
 
   LASkdtreePoint();
   LASkdtreePoint(F64 x, F64 y);
@@ -85,16 +85,16 @@ public:
 class LASkdtreeRectangles
 {
 public:
-  BOOL init();
+  LASBOOL init();
   void add(F64 min_x, F64 min_y, F64 max_x, F64 max_y);
-  BOOL build();
+  LASBOOL build();
   inline U32 size() const { return num_rectangles; };
-  BOOL was_built() const;
-  BOOL overlap(F64 min_x, F64 min_y, F64 max_x, F64 max_y); // rectangle
-  BOOL overlap(F64 x, F64 y);                               // point
+  LASBOOL was_built() const;
+  LASBOOL overlap(F64 min_x, F64 min_y, F64 max_x, F64 max_y); // rectangle
+  LASBOOL overlap(F64 x, F64 y);                               // point
   void print_overlap();
-  BOOL has_overlaps();
-  BOOL get_overlap(U32& index);
+  LASBOOL has_overlaps();
+  LASBOOL get_overlap(U32& index);
 
   LASkdtreeRectangles();
   ~LASkdtreeRectangles();

@@ -33,7 +33,7 @@
 
 #include <stdio.h>
 
-BOOL LASkdtreeRectangle::overlap(const LASkdtreeRectangle &rectangle) const
+LASBOOL LASkdtreeRectangle::overlap(const LASkdtreeRectangle &rectangle) const
 {
   if (max[0] < rectangle.min[0]) return FALSE;
   if (max[1] < rectangle.min[1]) return FALSE;
@@ -69,7 +69,7 @@ LASkdtreeRectangle::LASkdtreeRectangle()
   idx = 0;
 }
 
-BOOL LASkdtreePoint::overlap(const LASkdtreeRectangle &rectangle) const
+LASBOOL LASkdtreePoint::overlap(const LASkdtreeRectangle &rectangle) const
 {
   if (pos[0] < rectangle.min[0]) return FALSE;
   if (pos[1] < rectangle.min[1]) return FALSE;
@@ -104,7 +104,7 @@ LASkdtreeRectanglesNode::~LASkdtreeRectanglesNode()
   if (list) delete list;
 }
 
-BOOL LASkdtreeRectangles::init()
+LASBOOL LASkdtreeRectangles::init()
 {
   bb.min[0] = F64_MAX;
   bb.min[1] = F64_MAX;
@@ -146,7 +146,7 @@ void LASkdtreeRectangles::add(F64 min_x, F64 min_y, F64 max_x, F64 max_y)
   num_rectangles++;
 }
 
-BOOL LASkdtreeRectangles::build()
+LASBOOL LASkdtreeRectangles::build()
 {
   if (root) delete root;
   root = new LASkdtreeRectanglesNode();
@@ -166,7 +166,7 @@ BOOL LASkdtreeRectangles::build()
   return TRUE;
 }
 
-BOOL LASkdtreeRectangles::was_built() const
+LASBOOL LASkdtreeRectangles::was_built() const
 {
   if (root && overlap_set)
   {
@@ -178,7 +178,7 @@ BOOL LASkdtreeRectangles::was_built() const
   }
 }
 
-BOOL LASkdtreeRectangles::overlap(F64 min_x, F64 min_y, F64 max_x, F64 max_y)
+LASBOOL LASkdtreeRectangles::overlap(F64 min_x, F64 min_y, F64 max_x, F64 max_y)
 {
   if (overlap_set == 0)
   {
@@ -190,7 +190,7 @@ BOOL LASkdtreeRectangles::overlap(F64 min_x, F64 min_y, F64 max_x, F64 max_y)
   return TRUE;
 }
 
-BOOL LASkdtreeRectangles::overlap(F64 x, F64 y)
+LASBOOL LASkdtreeRectangles::overlap(F64 x, F64 y)
 {
   if (overlap_set == 0)
   {
@@ -202,7 +202,7 @@ BOOL LASkdtreeRectangles::overlap(F64 x, F64 y)
   return TRUE;
 }
 
-BOOL LASkdtreeRectangles::has_overlaps()
+LASBOOL LASkdtreeRectangles::has_overlaps()
 {
   if (overlap_set && overlap_set->size())
   {
@@ -212,7 +212,7 @@ BOOL LASkdtreeRectangles::has_overlaps()
   return FALSE;
 }
 
-BOOL LASkdtreeRectangles::get_overlap(U32& index)
+LASBOOL LASkdtreeRectangles::get_overlap(U32& index)
 {
   if (overlap_set)
   {

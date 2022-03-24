@@ -41,17 +41,17 @@ class LASwriterQFIT : public LASwriter
 {
 public:
 
-  BOOL refile(FILE* file);
+  LASBOOL refile(FILE* file);
 
-  BOOL open(const char* file_name, const LASheader* header, I32 version=48, U32 io_buffer_size=65536);
-  BOOL open(FILE* file, const LASheader* header, I32 version=48);
-  BOOL open(ByteStreamOut* stream, const LASheader* header, I32 version=48);
+  LASBOOL open(const char* file_name, const LASheader* header, I32 version=48, U32 io_buffer_size=65536);
+  LASBOOL open(FILE* file, const LASheader* header, I32 version=48);
+  LASBOOL open(ByteStreamOut* stream, const LASheader* header, I32 version=48);
 
-  BOOL write_point(const LASpoint* point);
-  BOOL chunk() { return FALSE; };
+  LASBOOL write_point(const LASpoint* point);
+  LASBOOL chunk() { return FALSE; };
 
-  BOOL update_header(const LASheader* header, BOOL use_inventory=FALSE, BOOL update_extra_bytes=FALSE);
-  I64 close(BOOL update_npoints=TRUE);
+  LASBOOL update_header(const LASheader* header, LASBOOL use_inventory=FALSE, LASBOOL update_extra_bytes=FALSE);
+  I64 close(LASBOOL update_npoints=TRUE);
 
   LASwriterQFIT();
   ~LASwriterQFIT();
@@ -60,8 +60,8 @@ private:
   ByteStreamOut* stream;
   FILE* file;
   I32 version;
-  BOOL endian_swap;
-  BOOL rescale_reoffset;
+  LASBOOL endian_swap;
+  LASBOOL rescale_reoffset;
   I32 buffer[14];
   I32 scan_azimuth_array_offset;
   I32 pitch_array_offset;

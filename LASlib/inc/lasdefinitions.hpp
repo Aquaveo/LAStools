@@ -225,7 +225,7 @@ public:
 
   // set functions
 
-  void set_bounding_box(F64 min_x, F64 min_y, F64 min_z, F64 max_x, F64 max_y, F64 max_z, BOOL auto_scale=TRUE, BOOL auto_offset=TRUE)
+  void set_bounding_box(F64 min_x, F64 min_y, F64 min_z, F64 max_x, F64 max_y, F64 max_z, LASBOOL auto_scale=TRUE, LASBOOL auto_offset=TRUE)
   {
     if (auto_scale)
     {
@@ -274,9 +274,9 @@ public:
     global_encoding &= ~(1 << bit);
   }
 
-  BOOL get_global_encoding_bit(I32 bit) const
+  LASBOOL get_global_encoding_bit(I32 bit) const
   {
-    return (BOOL)(global_encoding & (1 << bit));
+    return (LASBOOL)(global_encoding & (1 << bit));
   }
 
   // clean functions
@@ -434,7 +434,7 @@ public:
     return *this;
   };
 
-  BOOL check() const
+  LASBOOL check() const
   {
     if (strncmp(file_signature, "LASF", 4) != 0)
     {
@@ -477,7 +477,7 @@ public:
     return TRUE;
   };
 
-  BOOL is_compressed() const
+  LASBOOL is_compressed() const
   {
     if (laszip)
     {
@@ -489,7 +489,7 @@ public:
     return FALSE;
   };
 
-  BOOL is_lonlat(const F32 extend = 1.0f) const
+  LASBOOL is_lonlat(const F32 extend = 1.0f) const
   {
     if ((-360.0 <= min_x) && (-90.0 <= min_y) && (max_x <= 360.0) && (max_y <= 90.0))
     {
@@ -505,10 +505,10 @@ public:
 
   // note that data needs to be allocated with new [] and not malloc and that LASheader
   // will become the owner over this and manage its deallocation 
-  BOOL add_vlr(const CHAR* user_id, const U16 record_id, const U16 record_length_after_header, U8* data, const BOOL keep_description=FALSE, const CHAR* description=0, const BOOL keep_existing=FALSE)
+  LASBOOL add_vlr(const CHAR* user_id, const U16 record_id, const U16 record_length_after_header, U8* data, const LASBOOL keep_description=FALSE, const CHAR* description=0, const LASBOOL keep_existing=FALSE)
   {
     U32 i = 0;
-    BOOL found_description = FALSE;
+    LASBOOL found_description = FALSE;
     if (vlrs)
     {
       if (keep_existing)
@@ -587,7 +587,7 @@ public:
     return 0;
   };
 
-  BOOL remove_vlr(U32 i, BOOL delete_data=TRUE)
+  LASBOOL remove_vlr(U32 i, LASBOOL delete_data=TRUE)
   {
     if (vlrs)
     {
@@ -619,7 +619,7 @@ public:
     return FALSE;
   };
 
-  BOOL remove_vlr(const CHAR* user_id, U16 record_id)
+  LASBOOL remove_vlr(const CHAR* user_id, U16 record_id)
   {
     U32 i;
     for (i = 0; i < number_of_variable_length_records; i++)
@@ -634,10 +634,10 @@ public:
 
   // note that data needs to be allocated with new [] and not malloc and that LASheader
   // will become the owner over this and manage its deallocation 
-  void add_evlr(const CHAR* user_id, const U16 record_id, const I64 record_length_after_header, U8* data, const BOOL keep_description=FALSE, const CHAR* description=0, const BOOL keep_existing=FALSE)
+  void add_evlr(const CHAR* user_id, const U16 record_id, const I64 record_length_after_header, U8* data, const LASBOOL keep_description=FALSE, const CHAR* description=0, const LASBOOL keep_existing=FALSE)
   {
     U32 i = 0;
-    BOOL found_description = FALSE;
+    LASBOOL found_description = FALSE;
     if (evlrs)
     {
       if (keep_existing)
@@ -697,7 +697,7 @@ public:
     }
   };
 
-  BOOL remove_evlr(U32 i, BOOL delete_data=TRUE)
+  LASBOOL remove_evlr(U32 i, LASBOOL delete_data=TRUE)
   {
     if (evlrs)
     {
@@ -729,7 +729,7 @@ public:
     return FALSE;
   };
 
-  BOOL remove_evlr(const CHAR* user_id, U16 record_id)
+  LASBOOL remove_evlr(const CHAR* user_id, U16 record_id)
   {
     U32 i;
     for (i = 0; i < number_of_extended_variable_length_records; i++)
@@ -742,7 +742,7 @@ public:
     return FALSE;
   };
 
-  void set_lastiling(U32 level, U32 level_index, U32 implicit_levels, BOOL buffer, BOOL reversible, F32 min_x, F32 max_x, F32 min_y, F32 max_y)
+  void set_lastiling(U32 level, U32 level_index, U32 implicit_levels, LASBOOL buffer, LASBOOL reversible, F32 min_x, F32 max_x, F32 min_y, F32 max_y)
   {
     clean_lastiling();
     vlr_lastiling = new LASvlr_lastiling();
@@ -797,7 +797,7 @@ public:
     vlr_lasoriginal->min_z = min_z;
   }
 
-  BOOL restore_lasoriginal()
+  LASBOOL restore_lasoriginal()
   {
     if (vlr_lasoriginal)
     {
@@ -842,7 +842,7 @@ public:
     return FALSE;
   }
 
-  BOOL set_geo_keys(const I32 number_of_keys, const LASvlr_key_entry* geo_keys)
+  LASBOOL set_geo_keys(const I32 number_of_keys, const LASvlr_key_entry* geo_keys)
   {
     if ((sizeof(LASvlr_geo_keys)*(number_of_keys+1)) > U16_MAX)
 		{
@@ -858,7 +858,7 @@ public:
     return add_vlr("LASF_Projection", 34735, (U16)(sizeof(LASvlr_geo_keys)*(number_of_keys+1)), (U8*)vlr_geo_keys);
   }
 
-  BOOL set_geo_double_params(const I32 num_geo_double_params, const F64* geo_double_params)
+  LASBOOL set_geo_double_params(const I32 num_geo_double_params, const F64* geo_double_params)
   {
     if ((sizeof(F64)*num_geo_double_params) > U16_MAX)
 		{
@@ -878,7 +878,7 @@ public:
     }
   }
 
-  BOOL set_geo_ascii_params(const I32 num_geo_ascii_params, const CHAR* geo_ascii_params)
+  LASBOOL set_geo_ascii_params(const I32 num_geo_ascii_params, const CHAR* geo_ascii_params)
   {
     if ((sizeof(CHAR)*num_geo_ascii_params) > U16_MAX)
 		{
@@ -924,7 +924,7 @@ public:
     }
   }
 
-  void set_geo_ogc_wkt(const I32 num_geo_ogc_wkt, const CHAR* geo_ogc_wkt, BOOL in_evlr=FALSE)
+  void set_geo_ogc_wkt(const I32 num_geo_ogc_wkt, const CHAR* geo_ogc_wkt, LASBOOL in_evlr=FALSE)
   {
     I32 null_terminator = 0;
     if (geo_ogc_wkt[num_geo_ogc_wkt-1] == '\0')
@@ -958,7 +958,7 @@ public:
     }
   }
 
-  BOOL update_extra_bytes_vlr(const BOOL keep_description=FALSE)
+  LASBOOL update_extra_bytes_vlr(const LASBOOL keep_description=FALSE)
   {
     if (number_attributes)
     {

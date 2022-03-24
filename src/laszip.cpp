@@ -128,7 +128,7 @@ extern int laszip_multi_core(int argc, char *argv[], GeoProjectionConverter* geo
 int main(int argc, char *argv[])
 {
   int i;
-  BOOL dry = FALSE;
+  LASBOOL dry = FALSE;
 #ifdef COMPILE_WITH_GUI
   BOOL gui = FALSE;
 #endif
@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
   I32 cores = 1;
   BOOL cpu64 = FALSE;
 #endif
-  BOOL verbose = FALSE;
+  LASBOOL verbose = FALSE;
   bool waveform = false;
   bool waveform_with_map = false;
   bool report_file_size = false;
@@ -144,11 +144,11 @@ int main(int argc, char *argv[])
   I32 end_of_points = -1;
   bool projection_was_set = false;
   bool format_not_specified = false;
-  BOOL lax = FALSE;
-  BOOL append = FALSE;
-  BOOL remain_compatible = FALSE;
-  BOOL move_CRS = FALSE;
-  BOOL move_all = FALSE;
+  LASBOOL lax = FALSE;
+  LASBOOL append = FALSE;
+  LASBOOL remain_compatible = FALSE;
+  LASBOOL move_CRS = FALSE;
+  LASBOOL move_all = FALSE;
   F32 tile_size = 100.0f;
   U32 threshold = 1000;
   U32 minimum_points = 100000;

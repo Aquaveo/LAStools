@@ -42,19 +42,19 @@ public:
   ByteStreamInArray();
   ByteStreamInArray(const U8* data, I64 size);
 /* init the array                                            */
-  BOOL init(const U8* data, I64 size);
+  LASBOOL init(const U8* data, I64 size);
 /* read a single byte                                        */
   U32 getByte();
 /* read an array of bytes                                    */
   void getBytes(U8* bytes, const U32 num_bytes);
 /* is the stream seekable (e.g. stdin is not)                */
-  BOOL isSeekable() const;
+  LASBOOL isSeekable() const;
 /* get current position of stream                            */
   I64 tell() const;
 /* seek to this position in the stream                       */
-  BOOL seek(const I64 position);
+  LASBOOL seek(const I64 position);
 /* seek to the end of the stream                             */
-  BOOL seekEnd(const I64 distance=0);
+  LASBOOL seekEnd(const I64 distance=0);
 /* destructor                                                */
   ~ByteStreamInArray(){};
 protected:
@@ -117,7 +117,7 @@ inline ByteStreamInArray::ByteStreamInArray(const U8* data, I64 size)
   init(data, size);
 }
 
-inline BOOL ByteStreamInArray::init(const U8* data, I64 size)
+inline LASBOOL ByteStreamInArray::init(const U8* data, I64 size)
 {
   this->curr = 0;
   if (data)
@@ -155,7 +155,7 @@ inline void ByteStreamInArray::getBytes(U8* bytes, const U32 num_bytes)
   curr += num_bytes;
 }
 
-inline BOOL ByteStreamInArray::isSeekable() const
+inline LASBOOL ByteStreamInArray::isSeekable() const
 {
   return TRUE;
 }
@@ -165,7 +165,7 @@ inline I64 ByteStreamInArray::tell() const
   return curr;
 }
 
-inline BOOL ByteStreamInArray::seek(const I64 position)
+inline LASBOOL ByteStreamInArray::seek(const I64 position)
 {
   if ((0 <= position) && (position <= size))
   {
@@ -175,7 +175,7 @@ inline BOOL ByteStreamInArray::seek(const I64 position)
   return FALSE;
 }
 
-inline BOOL ByteStreamInArray::seekEnd(const I64 distance)
+inline LASBOOL ByteStreamInArray::seekEnd(const I64 distance)
 {
   if ((0 <= distance) && (distance <= size))
   {

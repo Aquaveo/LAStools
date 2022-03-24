@@ -416,12 +416,12 @@ bool LASzip::setup(const U16 num_items, const LASitem* items, const U16 compress
 
 bool LASzip::setup(U16* num_items, LASitem** items, const U8 point_type, const U16 point_size, const U16 compressor)
 {
-  BOOL compatible = FALSE;
-  BOOL have_point14 = FALSE;
-  BOOL have_gps_time = FALSE;
-  BOOL have_rgb = FALSE;
-  BOOL have_nir = FALSE;
-  BOOL have_wavepacket = FALSE;
+  LASBOOL compatible = FALSE;
+  LASBOOL have_point14 = FALSE;
+  LASBOOL have_gps_time = FALSE;
+  LASBOOL have_rgb = FALSE;
+  LASBOOL have_nir = FALSE;
+  LASBOOL have_wavepacket = FALSE;
   I32 extra_bytes_number = 0;
 
   // turns on LAS 1.4 compatibility mode 

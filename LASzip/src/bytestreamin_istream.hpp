@@ -46,30 +46,30 @@
 class ByteStreamInIstream : public ByteStreamIn
 {
 public:
-  ByteStreamInIstream(std::istream& stream, BOOL seekable=TRUE);
+  ByteStreamInIstream(std::istream& stream, LASBOOL seekable=TRUE);
 /* read a single byte                                        */
   U32 getByte();
 /* read an array of bytes                                    */
   void getBytes(U8* bytes, const U32 num_bytes);
 /* is the stream seekable (e.g. stdin is not)                */
-  BOOL isSeekable() const { return seekable; };
+  LASBOOL isSeekable() const { return seekable; };
 /* get current position of stream                            */
   I64 tell() const;
 /* seek to this position in the stream                       */
-  BOOL seek(const I64 position);
+  LASBOOL seek(const I64 position);
 /* seek to the end of the file                               */
-  BOOL seekEnd(const I64 distance=0);
+  LASBOOL seekEnd(const I64 distance=0);
 /* destructor                                                */
   ~ByteStreamInIstream(){};
 protected:
   std::istream& stream;
-  BOOL seekable;
+  LASBOOL seekable;
 };
 
 class ByteStreamInIstreamLE : public ByteStreamInIstream
 {
 public:
-  ByteStreamInIstreamLE(std::istream& stream, BOOL seekable=TRUE);
+  ByteStreamInIstreamLE(std::istream& stream, LASBOOL seekable=TRUE);
 /* read 16 bit low-endian field                              */
   void get16bitsLE(U8* bytes);
 /* read 32 bit low-endian field                              */
@@ -89,7 +89,7 @@ private:
 class ByteStreamInIstreamBE : public ByteStreamInIstream
 {
 public:
-  ByteStreamInIstreamBE(std::istream& stream, BOOL seekable=TRUE);
+  ByteStreamInIstreamBE(std::istream& stream, LASBOOL seekable=TRUE);
 /* read 16 bit low-endian field                              */
   void get16bitsLE(U8* bytes);
 /* read 32 bit low-endian field                              */
@@ -106,7 +106,7 @@ private:
   U8 swapped[8];
 };
 
-inline ByteStreamInIstream::ByteStreamInIstream(std::istream& stream_param, BOOL seekable_param) : stream(stream_param), seekable(seekable_param)
+inline ByteStreamInIstream::ByteStreamInIstream(std::istream& stream_param, LASBOOL seekable_param) : stream(stream_param), seekable(seekable_param)
 {
 }
 
@@ -134,7 +134,7 @@ inline I64 ByteStreamInIstream::tell() const
   return (I64)stream.tellg();
 }
 
-inline BOOL ByteStreamInIstream::seek(const I64 position)
+inline LASBOOL ByteStreamInIstream::seek(const I64 position)
 {
   if (tell() != position)
   {
@@ -144,13 +144,13 @@ inline BOOL ByteStreamInIstream::seek(const I64 position)
   return TRUE;
 }
 
-inline BOOL ByteStreamInIstream::seekEnd(const I64 distance)
+inline LASBOOL ByteStreamInIstream::seekEnd(const I64 distance)
 {
   stream.seekg(static_cast<std::streamoff>(-distance), std::ios::end);
   return stream.good();
 }
 
-inline ByteStreamInIstreamLE::ByteStreamInIstreamLE(std::istream& stream, BOOL seekable) : ByteStreamInIstream(stream, seekable)
+inline ByteStreamInIstreamLE::ByteStreamInIstreamLE(std::istream& stream, LASBOOL seekable) : ByteStreamInIstream(stream, seekable)
 {
 }
 
@@ -198,7 +198,7 @@ inline void ByteStreamInIstreamLE::get64bitsBE(U8* bytes)
   bytes[7] = swapped[0];
 }
 
-inline ByteStreamInIstreamBE::ByteStreamInIstreamBE(std::istream& stream, BOOL seekable) : ByteStreamInIstream(stream, seekable)
+inline ByteStreamInIstreamBE::ByteStreamInIstreamBE(std::istream& stream, LASBOOL seekable) : ByteStreamInIstream(stream, seekable)
 {
 }
 

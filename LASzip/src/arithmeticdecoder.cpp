@@ -105,7 +105,7 @@ ArithmeticDecoder::ArithmeticDecoder()
   instream = 0;
 }
 
-BOOL ArithmeticDecoder::init(ByteStreamIn* instream, BOOL really_init)
+LASBOOL ArithmeticDecoder::init(ByteStreamIn* instream, LASBOOL really_init)
 {
   if (instream == 0) return FALSE;
   this->instream = instream;

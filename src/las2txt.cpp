@@ -212,7 +212,7 @@ static void output_waveform(FILE* file_out, CHAR separator_sign, LASwaveform13re
 
 static I32 attribute_starts[32];
 
-static BOOL print_attribute(FILE* file, const LASheader* header, const LASpoint* point, I32 index, CHAR* printstring)
+static LASBOOL print_attribute(FILE* file, const LASheader* header, const LASpoint* point, I32 index, CHAR* printstring)
 {
   if (index >= header->number_attributes)
   {

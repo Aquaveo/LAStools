@@ -142,12 +142,12 @@ public:
 
 	void usage() const;
 	void clean();
-	BOOL parse(int argc, char* argv[]);
-	BOOL parse(CHAR* string);
+	LASBOOL parse(int argc, char* argv[]);
+	LASBOOL parse(CHAR* string);
 	I32 unparse(CHAR* string) const;
-	inline BOOL active() const { return (num_operations != 0); };
+	inline LASBOOL active() const { return (num_operations != 0); };
 	U32 get_decompress_selective() const;
-	inline BOOL filtered() const { return is_filtered; };
+	inline LASBOOL filtered() const { return is_filtered; };
 
 	void setFilter(LASfilter* filter);
 
@@ -170,7 +170,7 @@ private:
 	U32 num_operations;
 	U32 alloc_operations;
 	LASoperation** operations;
-	BOOL is_filtered;
+	LASBOOL is_filtered;
 	LASfilter* filter;
 };
 

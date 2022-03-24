@@ -42,32 +42,32 @@ class LASreaderQFIT : public LASreader
 {
 public:
 
-  BOOL open(const char* file_name);
+  LASBOOL open(const char* file_name);
 
   I32 get_format() const { return LAS_TOOLS_FORMAT_QFIT; };
 
-  BOOL seek(const I64 p_index);
+  LASBOOL seek(const I64 p_index);
 
   ByteStreamIn* get_stream() const;
-  void close(BOOL close_stream=TRUE);
-  BOOL reopen(const char* file_name);
+  void close(LASBOOL close_stream=TRUE);
+  LASBOOL reopen(const char* file_name);
 
   LASreaderQFIT();
   virtual ~LASreaderQFIT();
 
 protected:
-  virtual BOOL open(ByteStreamIn* stream);
-  BOOL read_point_default();
+  virtual LASBOOL open(ByteStreamIn* stream);
+  LASBOOL read_point_default();
 
 private:
   FILE* file;
   ByteStreamIn* stream;
   I32 version;
-  BOOL little_endian;
-  BOOL endian_swap;
+  LASBOOL little_endian;
+  LASBOOL endian_swap;
   I32 offset;
   I32 buffer[14];
-  BOOL populated_header;
+  LASBOOL populated_header;
   I32 scan_azimuth_start;
   I32 pitch_start;
   I32 roll_start;
@@ -77,7 +77,7 @@ private:
 class LASreaderQFITrescale : public virtual LASreaderQFIT
 {
 public:
-  virtual BOOL open(ByteStreamIn* stream);
+  virtual LASBOOL open(ByteStreamIn* stream);
   LASreaderQFITrescale(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor);
 
 protected:
@@ -87,7 +87,7 @@ protected:
 class LASreaderQFITreoffset : public virtual LASreaderQFIT
 {
 public:
-  virtual BOOL open(ByteStreamIn* stream);
+  virtual LASBOOL open(ByteStreamIn* stream);
   LASreaderQFITreoffset(F64 x_offset, F64 y_offset, F64 z_offset);
 protected:
   F64 offset[3];
@@ -96,7 +96,7 @@ protected:
 class LASreaderQFITrescalereoffset : public LASreaderQFITrescale, LASreaderQFITreoffset
 {
 public:
-  BOOL open(ByteStreamIn* stream);
+  LASBOOL open(ByteStreamIn* stream);
   LASreaderQFITrescalereoffset(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor, F64 x_offset, F64 y_offset, F64 z_offset);
 };
 

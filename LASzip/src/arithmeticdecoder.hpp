@@ -52,7 +52,7 @@ public:
   ~ArithmeticDecoder();
 
 /* Manage decoding                                           */
-  BOOL init(ByteStreamIn* instream, BOOL really_init = TRUE);
+  LASBOOL init(ByteStreamIn* instream, LASBOOL really_init = TRUE);
   void done();
 
 /* Manage an entropy model for a single bit                  */

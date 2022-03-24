@@ -67,9 +67,9 @@ typedef float              F32;
 typedef double             F64;
 
 #if defined(_MSC_VER) || defined (__MINGW32__)
-typedef int                BOOL;
+typedef int                LASBOOL;
 #else
-typedef bool               BOOL;
+typedef bool               LASBOOL;
 #endif
 
 typedef union U32I32F32 { U32 u32; I32 i32; F32 f32; } U32I32F32;
@@ -179,7 +179,7 @@ typedef union I64U32I32F32 { I64 i64; U32 u32[2]; I32 i32[2]; F32 f32[2]; } I64U
 #define NULL    0
 #endif
 
-inline BOOL IS_LITTLE_ENDIAN()
+inline LASBOOL IS_LITTLE_ENDIAN()
 {
   const U32 i = 1;
   return (*((const U8*)&i) == 1);
@@ -257,7 +257,7 @@ inline void ENDIAN_SWAP_64(const U8* from, U8* to)
 }
 
 #if defined(_MSC_VER)
-#include <windows.h>
+#include <stddef.h>
 wchar_t* UTF8toUTF16(const char* utf8);
 #endif
 

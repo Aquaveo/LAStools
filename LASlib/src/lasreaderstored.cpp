@@ -40,7 +40,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-BOOL LASreaderStored::open(LASreader* lasreader)
+LASBOOL LASreaderStored::open(LASreader* lasreader)
 {
   if (lasreader == 0)
   {
@@ -123,7 +123,7 @@ BOOL LASreaderStored::open(LASreader* lasreader)
   return TRUE;
 }
 
-BOOL LASreaderStored::reopen()
+LASBOOL LASreaderStored::reopen()
 {
   if (streaminarray)
   {
@@ -210,17 +210,17 @@ void LASreaderStored::set_transform(LAStransform* transform)
   if (lasreader) lasreader->set_transform(transform);
 }
 
-BOOL LASreaderStored::inside_tile(const F32 ll_x, const F32 ll_y, const F32 size)
+LASBOOL LASreaderStored::inside_tile(const F32 ll_x, const F32 ll_y, const F32 size)
 {
   return (lasreader ? lasreader->inside_tile(ll_x, ll_y, size) : FALSE);
 }
 
-BOOL LASreaderStored::inside_circle(const F64 center_x, const F64 center_y, const F64 radius)
+LASBOOL LASreaderStored::inside_circle(const F64 center_x, const F64 center_y, const F64 radius)
 {
   return (lasreader ? lasreader->inside_circle(center_x, center_y, radius) : FALSE);
 }
 
-BOOL LASreaderStored::inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y)
+LASBOOL LASreaderStored::inside_rectangle(const F64 min_x, const F64 min_y, const F64 max_x, const F64 max_y)
 {
   return (lasreader ? lasreader->inside_rectangle(min_x, min_y, max_x, max_y) : FALSE);
 }
@@ -230,7 +230,7 @@ I32 LASreaderStored::get_format() const
   return (lasreader ? lasreader->get_format() : LAS_TOOLS_FORMAT_DEFAULT);
 }
 
-BOOL LASreaderStored::read_point_default()
+LASBOOL LASreaderStored::read_point_default()
 {
   if (lasreader)
   {
@@ -258,7 +258,7 @@ BOOL LASreaderStored::read_point_default()
   return FALSE;
 }
 
-void LASreaderStored::close(BOOL close_stream)
+void LASreaderStored::close(LASBOOL close_stream)
 {
   if (lasreader) 
   {

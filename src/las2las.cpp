@@ -970,7 +970,7 @@ int main(int argc, char *argv[])
     usage(true, argc==1);
   }
   
-  BOOL extra_pass = laswriteopener.is_piped();
+  LASBOOL extra_pass = laswriteopener.is_piped();
 
   // we only really need an extra pass if the coordinates are altered or if points are filtered
 
@@ -1811,7 +1811,7 @@ int main(int argc, char *argv[])
 
       // do we need an extra pass
 
-      BOOL extra_pass = laswriteopener.is_piped();
+      LASBOOL extra_pass = laswriteopener.is_piped();
 
       // we only really need an extra pass if the coordinates are altered or if points are filtered
 

@@ -101,7 +101,7 @@ public:
   U8 dummy[2];
 
   // compressed LASzip 1.4 points only
-  BOOL gps_time_change;
+  LASBOOL gps_time_change;
 
   F64 gps_time;
   U16 rgb[4];
@@ -124,10 +124,10 @@ public:
 
 // these fields describe the point format LAS specific
 
-  BOOL have_gps_time;
-  BOOL have_rgb;
-  BOOL have_nir;
-  BOOL have_wavepacket;
+  LASBOOL have_gps_time;
+  LASBOOL have_rgb;
+  LASBOOL have_nir;
+  LASBOOL have_wavepacket;
   I32 extra_bytes_number;
   U32 total_point_size;
 
@@ -272,7 +272,7 @@ public:
 
 // these functions set the desired point format (and maybe add on attributes in extra bytes)
 
-  BOOL init(const LASquantizer* quantizer, const U8 point_type, const U16 point_size, const LASattributer* attributer=0)
+  LASBOOL init(const LASquantizer* quantizer, const U8 point_type, const U16 point_size, const LASattributer* attributer=0)
   {
     // clean the point
 
@@ -334,7 +334,7 @@ public:
     return TRUE;
   };
 
-  BOOL init(const LASquantizer* quantizer, const U32 num_items, const LASitem* items, const LASattributer* attributer=0)
+  LASBOOL init(const LASquantizer* quantizer, const U32 num_items, const LASitem* items, const LASattributer* attributer=0)
   {
     U32 i;
 
@@ -394,7 +394,7 @@ public:
     return TRUE;
   };
 
-  BOOL inside_rectangle(const F64 r_min_x, const F64 r_min_y, const F64 r_max_x, const F64 r_max_y) const
+  LASBOOL inside_rectangle(const F64 r_min_x, const F64 r_min_y, const F64 r_max_x, const F64 r_max_y) const
   {
     F64 xy;
     xy = get_x();
@@ -404,7 +404,7 @@ public:
     return TRUE;
   }
 
-  BOOL inside_tile(const F32 ll_x, const F32 ll_y, const F32 ur_x, const F32 ur_y) const
+  LASBOOL inside_tile(const F32 ll_x, const F32 ll_y, const F32 ur_x, const F32 ur_y) const
   {
     F64 xy;
     xy = get_x();
@@ -414,14 +414,14 @@ public:
     return TRUE;
   }
 
-  BOOL inside_circle(const F64 center_x, const F64 center_y, F64 squared_radius) const
+  LASBOOL inside_circle(const F64 center_x, const F64 center_y, F64 squared_radius) const
   {
     F64 dx = center_x - get_x();
     F64 dy = center_y - get_y();
     return ((dx*dx+dy*dy) < squared_radius);
   }
 
-  BOOL inside_box(const F64 min_x, const F64 min_y, const F64 min_z, const F64 max_x, const F64 max_y, const F64 max_z) const
+  LASBOOL inside_box(const F64 min_x, const F64 min_y, const F64 min_z, const F64 max_x, const F64 max_y, const F64 max_z) const
   {
     F64 xyz;
     xyz = get_x();
@@ -433,7 +433,7 @@ public:
     return TRUE;
   }
 
-  BOOL inside_bounding_box(const F64 min_x, const F64 min_y, const F64 min_z, const F64 max_x, const F64 max_y, const F64 max_z) const
+  LASBOOL inside_bounding_box(const F64 min_x, const F64 min_y, const F64 min_z, const F64 max_x, const F64 max_y, const F64 max_z) const
   {
     F64 xyz;
     xyz = get_x();
@@ -515,13 +515,13 @@ public:
     clean();
   };
 
-  inline BOOL is_first() const { return get_return_number() <= 1; };
-  inline BOOL is_intermediate() const { return (!is_first() && !is_last()); };
-  inline BOOL is_last() const { return get_return_number() >= get_number_of_returns(); };
-  inline BOOL is_single() const { return get_number_of_returns() <= 1; };
+  inline LASBOOL is_first() const { return get_return_number() <= 1; };
+  inline LASBOOL is_intermediate() const { return (!is_first() && !is_last()); };
+  inline LASBOOL is_last() const { return get_return_number() >= get_number_of_returns(); };
+  inline LASBOOL is_single() const { return get_number_of_returns() <= 1; };
 
-  inline BOOL is_first_of_many() const { return !is_single() && is_first(); };
-  inline BOOL is_last_of_many() const { return !is_single() && is_last(); };
+  inline LASBOOL is_first_of_many() const { return !is_single() && is_first(); };
+  inline LASBOOL is_last_of_many() const { return !is_single() && is_last(); };
 
   inline I32 get_X() const { return X; };
   inline I32 get_Y() const { return Y; };
@@ -580,11 +580,11 @@ public:
   inline F64 get_y() const { return quantizer->get_y(Y); };
   inline F64 get_z() const { return quantizer->get_z(Z); };
 
-  inline BOOL set_x(const F64 x) { I64 X = quantizer->get_X(x); this->X = (I32)(X); return I32_FITS_IN_RANGE(X); };
-  inline BOOL set_y(const F64 y) { I64 Y = quantizer->get_Y(y); this->Y = (I32)(Y); return I32_FITS_IN_RANGE(Y); };
-  inline BOOL set_z(const F64 z) { I64 Z = quantizer->get_Z(z); this->Z = (I32)(Z); return I32_FITS_IN_RANGE(Z); };
+  inline LASBOOL set_x(const F64 x) { I64 X = quantizer->get_X(x); this->X = (I32)(X); return I32_FITS_IN_RANGE(X); };
+  inline LASBOOL set_y(const F64 y) { I64 Y = quantizer->get_Y(y); this->Y = (I32)(Y); return I32_FITS_IN_RANGE(Y); };
+  inline LASBOOL set_z(const F64 z) { I64 Z = quantizer->get_Z(z); this->Z = (I32)(Z); return I32_FITS_IN_RANGE(Z); };
 
-  inline BOOL is_extended_point_type() const { return extended_point_type; };
+  inline LASBOOL is_extended_point_type() const { return extended_point_type; };
 
   inline U8 get_extended_classification() const { return extended_classification; };
   inline U8 get_extended_return_number() const { return extended_return_number; };
@@ -612,15 +612,15 @@ public:
     coordinates[2] = get_z();
   };
 
-  inline BOOL compute_XYZ()
+  inline LASBOOL compute_XYZ()
   {
-    BOOL retX = set_x(coordinates[0]);
-    BOOL retY = set_y(coordinates[1]);
-    BOOL retZ = set_z(coordinates[2]);
+    LASBOOL retX = set_x(coordinates[0]);
+    LASBOOL retY = set_y(coordinates[1]);
+    LASBOOL retZ = set_z(coordinates[2]);
     return (retX && retY && retZ);
   };
 
-  inline BOOL compute_XYZ(const LASquantizer* quantizer)
+  inline LASBOOL compute_XYZ(const LASquantizer* quantizer)
   {
     I64 X = quantizer->get_X(coordinates[0]);
     I64 Y = quantizer->get_Y(coordinates[1]);
@@ -633,7 +633,7 @@ public:
 
   // generic functions for attributes in extra bytes
 
-  inline BOOL has_attribute(U32 index) const
+  inline LASBOOL has_attribute(U32 index) const
   {
     if (attributer)
     {
@@ -645,7 +645,7 @@ public:
     return FALSE;
   };
 
-  inline BOOL get_attribute(U32 index, U8* data) const
+  inline LASBOOL get_attribute(U32 index, U8* data) const
   {
     if (has_attribute(index))
     {
@@ -655,7 +655,7 @@ public:
     return FALSE;
   };
 
-  inline BOOL set_attribute(U32 index, const U8* data) 
+  inline LASBOOL set_attribute(U32 index, const U8* data) 
   {
     if (has_attribute(index))
     {

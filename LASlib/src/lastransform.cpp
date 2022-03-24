@@ -2729,7 +2729,7 @@ void LAStransform::usage() const
 	fprintf(stderr, "  -copy_register_into_intensity 1\n");
 }
 
-BOOL LAStransform::parse(int argc, char* argv[])
+LASBOOL LAStransform::parse(int argc, char* argv[])
 {
 	int i;
 
@@ -6231,7 +6231,7 @@ BOOL LAStransform::parse(int argc, char* argv[])
 	return TRUE;
 }
 
-BOOL LAStransform::parse(CHAR* string)
+LASBOOL LAStransform::parse(CHAR* string)
 {
 	int p = 0;
 	int argc = 1;

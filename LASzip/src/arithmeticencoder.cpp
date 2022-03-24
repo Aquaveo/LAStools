@@ -117,7 +117,7 @@ ArithmeticEncoder::~ArithmeticEncoder()
   free(outbuffer);
 }
 
-BOOL ArithmeticEncoder::init(ByteStreamOut* outstream)
+LASBOOL ArithmeticEncoder::init(ByteStreamOut* outstream)
 {
   if (outstream == 0) return FALSE;
   this->outstream = outstream;
@@ -131,7 +131,7 @@ BOOL ArithmeticEncoder::init(ByteStreamOut* outstream)
 void ArithmeticEncoder::done()
 {
   U32 init_base = base;                 // done encoding: set final data bytes
-  BOOL another_byte = TRUE;
+  LASBOOL another_byte = TRUE;
 
   if (length > 2 * AC__MinLength) {
     base  += AC__MinLength;                                     // base offset

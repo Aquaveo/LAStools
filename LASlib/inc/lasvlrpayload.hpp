@@ -43,11 +43,11 @@ public:
   virtual const CHAR* get_user_id() const = 0;
   virtual I64 get_payload_size() const = 0;
   virtual U8* get_payload() const = 0;
-  virtual BOOL set_payload(const U8* payload, I64 size) = 0;
+  virtual LASBOOL set_payload(const U8* payload, I64 size) = 0;
   virtual ~LASvlrPayload() {};
 protected:
-  virtual BOOL save(ByteStreamOut* stream) const = 0;
-  virtual BOOL load(ByteStreamIn* stream) = 0;
+  virtual LASBOOL save(ByteStreamOut* stream) const = 0;
+  virtual LASBOOL load(ByteStreamIn* stream) = 0;
 };
 
 class LASvlrRasterLAZ : public LASvlrPayload
@@ -114,7 +114,7 @@ public:
     }
     return payload;
   };
-  BOOL set_payload(const U8* payload, I64 size)
+  LASBOOL set_payload(const U8* payload, I64 size)
   {
     ByteStreamInArray* stream = 0;
     if (IS_LITTLE_ENDIAN())
@@ -132,7 +132,7 @@ public:
     }
     return FALSE;
   }
-  BOOL save(ByteStreamOut* stream) const
+  LASBOOL save(ByteStreamOut* stream) const
   {
     if (!stream->put32bitsLE((U8*)&nbands))
     {
@@ -201,7 +201,7 @@ public:
     }
     return TRUE;
   };
-  BOOL load(ByteStreamIn* stream)
+  LASBOOL load(ByteStreamIn* stream)
   {
     try { stream->get32bitsLE((U8*)&nbands); } catch(...)
     {

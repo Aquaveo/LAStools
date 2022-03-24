@@ -72,12 +72,12 @@ LASwaveform13reader::~LASwaveform13reader()
   if (dec) delete dec;
 }
 
-BOOL LASwaveform13reader::is_compressed() const
+LASBOOL LASwaveform13reader::is_compressed() const
 {
   return compressed;
 }
 
-BOOL LASwaveform13reader::open(const char* file_name, I64 start_of_waveform_data_packet_record, const LASvlr_wave_packet_descr * const * wave_packet_descr)
+LASBOOL LASwaveform13reader::open(const char* file_name, I64 start_of_waveform_data_packet_record, const LASvlr_wave_packet_descr * const * wave_packet_descr)
 {
   if (file_name == 0)
   {
@@ -264,7 +264,7 @@ BOOL LASwaveform13reader::open(const char* file_name, I64 start_of_waveform_data
   return TRUE;
 }
 
-BOOL LASwaveform13reader::read_waveform(const LASpoint* point)
+LASBOOL LASwaveform13reader::read_waveform(const LASpoint* point)
 {
   U32 index = point->wavepacket.getIndex();
   if (index == 0)
@@ -360,7 +360,7 @@ BOOL LASwaveform13reader::read_waveform(const LASpoint* point)
   return TRUE;
 }
 
-BOOL LASwaveform13reader::get_samples()
+LASBOOL LASwaveform13reader::get_samples()
 {
   if (nbits == 8)
   {
@@ -386,7 +386,7 @@ BOOL LASwaveform13reader::get_samples()
   return (s_count < nsamples);
 }
 
-BOOL LASwaveform13reader::has_samples()
+LASBOOL LASwaveform13reader::has_samples()
 {
   if (s_count < nsamples)
   {
@@ -404,7 +404,7 @@ BOOL LASwaveform13reader::has_samples()
   return FALSE;
 }
 
-BOOL LASwaveform13reader::get_samples_xyz()
+LASBOOL LASwaveform13reader::get_samples_xyz()
 {
   if (nbits == 8)
   {
@@ -430,7 +430,7 @@ BOOL LASwaveform13reader::get_samples_xyz()
   return (s_count < nsamples);
 }
 
-BOOL LASwaveform13reader::has_samples_xyz()
+LASBOOL LASwaveform13reader::has_samples_xyz()
 {
   if (s_count < nsamples)
   {

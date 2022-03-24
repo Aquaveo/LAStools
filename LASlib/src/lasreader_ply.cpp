@@ -41,7 +41,7 @@
 
 extern "C" FILE* fopen_compressed(const char* filename, const char* mode, bool* piped);
 
-BOOL LASreaderPLY::open(const CHAR* file_name, U8 point_type, BOOL populate_header)
+LASBOOL LASreaderPLY::open(const CHAR* file_name, U8 point_type, LASBOOL populate_header)
 {
   if (file_name == 0)
   {
@@ -64,7 +64,7 @@ BOOL LASreaderPLY::open(const CHAR* file_name, U8 point_type, BOOL populate_head
   return open(file, file_name, point_type, populate_header);
 }
 
-BOOL LASreaderPLY::open(FILE* file, const CHAR* file_name, U8 point_type, BOOL populate_header)
+LASBOOL LASreaderPLY::open(FILE* file, const CHAR* file_name, U8 point_type, LASBOOL populate_header)
 {
   int i,j;
 
@@ -275,7 +275,7 @@ BOOL LASreaderPLY::open(FILE* file, const CHAR* file_name, U8 point_type, BOOL p
     }
     else
     {
-      BOOL found = FALSE;
+      LASBOOL found = FALSE;
       while (fgets(line, 512, file))
       {
         if (parse(parse_string))
@@ -334,7 +334,7 @@ BOOL LASreaderPLY::open(FILE* file, const CHAR* file_name, U8 point_type, BOOL p
 
     for (i = 1; i < npoints; i++)
     {
-      BOOL found = FALSE;
+      LASBOOL found = FALSE;
       if (streamin) // binary
       {
         if (read_binary_point())
@@ -581,7 +581,7 @@ void LASreaderPLY::add_attribute(I32 attribute_type, const char* name, const cha
   number_attributes++;
 }
 
-BOOL LASreaderPLY::seek(const I64 p_index)
+LASBOOL LASreaderPLY::seek(const I64 p_index)
 {
   U32 delta = 0;
   if (p_index > p_count)
@@ -629,7 +629,7 @@ BOOL LASreaderPLY::seek(const I64 p_index)
   return TRUE;
 }
 
-BOOL LASreaderPLY::read_point_default()
+LASBOOL LASreaderPLY::read_point_default()
 {
   if (p_count < npoints)
   {
@@ -722,7 +722,7 @@ ByteStreamIn* LASreaderPLY::get_stream() const
   return 0;
 }
 
-void LASreaderPLY::close(BOOL close_stream)
+void LASreaderPLY::close(LASBOOL close_stream)
 {
   if (file)
   {
@@ -732,7 +732,7 @@ void LASreaderPLY::close(BOOL close_stream)
   }
 }
 
-BOOL LASreaderPLY::reopen(const char* file_name)
+LASBOOL LASreaderPLY::reopen(const char* file_name)
 {
   int i;
 
@@ -838,7 +838,7 @@ LASreaderPLY::~LASreaderPLY()
   }
 }
 
-BOOL LASreaderPLY::set_attribute(I32 index, F64 value)
+LASBOOL LASreaderPLY::set_attribute(I32 index, F64 value)
 {
   if (index >= header.number_attributes)
   {
@@ -1054,7 +1054,7 @@ F64 LASreaderPLY::read_binary_value(CHAR type)
   return value;
 }
 
-BOOL LASreaderPLY::read_binary_point()
+LASBOOL LASreaderPLY::read_binary_point()
 {
   const CHAR* p = parse_string;
   const CHAR* t = type_string;
@@ -1182,7 +1182,7 @@ BOOL LASreaderPLY::read_binary_point()
   return TRUE;
 }
 
-BOOL LASreaderPLY::parse_attribute(const char* l, I32 index)
+LASBOOL LASreaderPLY::parse_attribute(const char* l, I32 index)
 {
   F64 temp_d;
   if (sscanf(l, "%lf", &temp_d) != 1) return FALSE;
@@ -1190,7 +1190,7 @@ BOOL LASreaderPLY::parse_attribute(const char* l, I32 index)
   return TRUE;
 }
 
-BOOL LASreaderPLY::parse(const char* parse_string)
+LASBOOL LASreaderPLY::parse(const char* parse_string)
 {
   I32 temp_i;
   F32 temp_f;
@@ -1517,9 +1517,9 @@ BOOL LASreaderPLY::parse(const char* parse_string)
   return TRUE;
 }
 
-BOOL LASreaderPLY::parse_header(BOOL quiet)
+LASBOOL LASreaderPLY::parse_header(LASBOOL quiet)
 {
-  BOOL skip_remaining = FALSE;
+  LASBOOL skip_remaining = FALSE;
   CHAR line[512];
   U32 items = 0;
   U32 offset = 0;
@@ -1959,7 +1959,7 @@ LASreaderPLYrescale::LASreaderPLYrescale(F64 x_scale_factor, F64 y_scale_factor,
   scale_factor[2] = z_scale_factor;
 }
 
-BOOL LASreaderPLYrescale::open(const CHAR* file_name, U8 point_type, BOOL populate_header)
+LASBOOL LASreaderPLYrescale::open(const CHAR* file_name, U8 point_type, LASBOOL populate_header)
 {
   if (!LASreaderPLY::open(file_name, point_type, populate_header)) return FALSE;
   // do we need to change anything
@@ -1985,7 +1985,7 @@ LASreaderPLYreoffset::LASreaderPLYreoffset(F64 x_offset, F64 y_offset, F64 z_off
   this->offset[2] = z_offset;
 }
 
-BOOL LASreaderPLYreoffset::open(const CHAR* file_name, U8 point_type, BOOL populate_header)
+LASBOOL LASreaderPLYreoffset::open(const CHAR* file_name, U8 point_type, LASBOOL populate_header)
 {
   if (!LASreaderPLY::open(file_name, point_type, populate_header)) return FALSE;
   // do we need to change anything
@@ -2008,7 +2008,7 @@ LASreaderPLYrescalereoffset::LASreaderPLYrescalereoffset(F64 x_scale_factor, F64
 {
 }
 
-BOOL LASreaderPLYrescalereoffset::open(const CHAR* file_name, U8 point_type, BOOL populate_header)
+LASBOOL LASreaderPLYrescalereoffset::open(const CHAR* file_name, U8 point_type, LASBOOL populate_header)
 {
   if (!LASreaderPLY::open(file_name, point_type, populate_header)) return FALSE;
   // do we need to change anything

@@ -59,45 +59,45 @@ class LASreaderLAS : public LASreader
 {
 public:
 
-  void set_delete_stream(BOOL delete_stream=TRUE) { this->delete_stream = delete_stream; };
+  void set_delete_stream(LASBOOL delete_stream=TRUE) { this->delete_stream = delete_stream; };
 
-  BOOL open(const char* file_name, I32 io_buffer_size=LAS_TOOLS_IO_IBUFFER_SIZE, BOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
-  BOOL open(FILE* file, BOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
-  BOOL open(std::istream& stream, BOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL, BOOL seekable=TRUE);
-  virtual BOOL open(ByteStreamIn* stream, BOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
+  LASBOOL open(const char* file_name, I32 io_buffer_size=LAS_TOOLS_IO_IBUFFER_SIZE, LASBOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
+  LASBOOL open(FILE* file, LASBOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
+  LASBOOL open(std::istream& stream, LASBOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL, LASBOOL seekable=TRUE);
+  virtual LASBOOL open(ByteStreamIn* stream, LASBOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
 
   I32 get_format() const;
 
-  BOOL seek(const I64 p_index);
+  LASBOOL seek(const I64 p_index);
 
   ByteStreamIn* get_stream() const;
-  void close(BOOL close_stream=TRUE);
+  void close(LASBOOL close_stream=TRUE);
 
   LASreaderLAS();
   virtual ~LASreaderLAS();
 
 protected:
-  virtual BOOL read_point_default();
+  virtual LASBOOL read_point_default();
 
 private:
   FILE* file;
   CHAR* file_name;
   ByteStreamIn* stream;
-  BOOL delete_stream;
+  LASBOOL delete_stream;
   LASreadPoint* reader;
-  BOOL checked_end;
+  LASBOOL checked_end;
 };
 
 class LASreaderLASrescale : public virtual LASreaderLAS
 {
 public:
-  LASreaderLASrescale(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor, BOOL check_for_overflow=TRUE);
+  LASreaderLASrescale(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor, LASBOOL check_for_overflow=TRUE);
 
 protected:
-  virtual BOOL open(ByteStreamIn* stream, BOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
-  virtual BOOL read_point_default();
-  BOOL rescale_x, rescale_y, rescale_z;
-  BOOL check_for_overflow;
+  virtual LASBOOL open(ByteStreamIn* stream, LASBOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
+  virtual LASBOOL read_point_default();
+  LASBOOL rescale_x, rescale_y, rescale_z;
+  LASBOOL check_for_overflow;
   F64 scale_factor[3];
   F64 orig_x_scale_factor, orig_y_scale_factor, orig_z_scale_factor;
 };
@@ -109,10 +109,10 @@ public:
   LASreaderLASreoffset(); // auto reoffset
 
 protected:
-  virtual BOOL open(ByteStreamIn* stream, BOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
-  virtual BOOL read_point_default();
-  BOOL auto_reoffset;
-  BOOL reoffset_x, reoffset_y, reoffset_z;
+  virtual LASBOOL open(ByteStreamIn* stream, LASBOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
+  virtual LASBOOL read_point_default();
+  LASBOOL auto_reoffset;
+  LASBOOL reoffset_x, reoffset_y, reoffset_z;
   F64 offset[3];
   F64 orig_x_offset, orig_y_offset, orig_z_offset;
 };
@@ -124,8 +124,8 @@ public:
   LASreaderLASrescalereoffset(F64 x_scale_factor, F64 y_scale_factor, F64 z_scale_factor); // auto reoffset
 
 protected:
-  BOOL open(ByteStreamIn* stream, BOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
-  BOOL read_point_default();
+  LASBOOL open(ByteStreamIn* stream, LASBOOL peek_only=FALSE, U32 decompress_selective=LASZIP_DECOMPRESS_SELECTIVE_ALL);
+  LASBOOL read_point_default();
 };
 
 #endif
