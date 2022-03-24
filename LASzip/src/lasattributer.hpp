@@ -335,7 +335,7 @@ private:
   };
 };
 
-class LASattributer
+class LASLIB_DLL LASattributer
 {
 public:
   BOOL attributes_linked;

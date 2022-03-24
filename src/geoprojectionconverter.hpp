@@ -70,6 +70,8 @@
 #ifndef GEO_PROJECTION_CONVERTER_HPP
 #define GEO_PROJECTION_CONVERTER_HPP
 
+#include "mydefs.hpp"
+
 struct GeoProjectionGeoKeys
 {
   unsigned short key_id;
@@ -274,7 +276,7 @@ public:
   double os_gf;
 };
 
-class GeoProjectionConverter
+class LASLIB_DLL GeoProjectionConverter
 {
 public:
 
