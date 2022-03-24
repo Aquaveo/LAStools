@@ -587,7 +587,6 @@ laszip_unload_dll
 #else
 #include <istream>
 #include <fstream>
-using namespace std;
 #endif
 
 /*---------------------------------------------------------------------------*/

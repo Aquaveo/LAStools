@@ -37,10 +37,9 @@
 
 #include <map>
 #include <set>
-using namespace std;
 
-typedef multimap<I64,F64> my_I64_F64_map;
-typedef set<I64> my_I64_set;
+typedef std::multimap<I64,F64> my_I64_F64_map;
+typedef std::set<I64> my_I64_set;
 
 class LAScriterionAnd : public LAScriterion
 {

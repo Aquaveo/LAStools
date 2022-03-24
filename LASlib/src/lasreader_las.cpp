@@ -127,7 +127,7 @@ BOOL LASreaderLAS::open(FILE* file, BOOL peek_only, U32 decompress_selective)
   return open(in, peek_only, decompress_selective);
 }
 
-BOOL LASreaderLAS::open(istream& stream, BOOL peek_only, U32 decompress_selective, BOOL seekable)
+BOOL LASreaderLAS::open(std::istream& stream, BOOL peek_only, U32 decompress_selective, BOOL seekable)
 {
   // create input
   ByteStreamIn* in;
