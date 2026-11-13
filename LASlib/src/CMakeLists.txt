@@ -38,6 +38,7 @@ set(LAS_SRC
 	lastransform.cpp
 	laskdtree.cpp
 	fopen_compressed.cpp
+	${CMAKE_SOURCE_DIR}/src/geoprojectionconverter.cpp
 )
 
 set(LAZ_SRC
@@ -69,6 +70,9 @@ endforeach(file)
 file(GLOB_RECURSE LAS_INCLUDES
 	${CMAKE_SOURCE_DIR}/LASzip/src/*.hpp 
 	${CMAKE_SOURCE_DIR}/LASlib/inc/*.hpp
+)
+list(APPEND LAS_INCLUDES
+	${CMAKE_SOURCE_DIR}/src/geoprojectionconverter.hpp
 )
 
 add_library(LASlib ${LAS_SRC} ${LAZ_SRC_FULL})
