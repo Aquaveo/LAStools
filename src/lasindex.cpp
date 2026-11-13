@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
   {
     for (i = 1; i < argc; i++)
     {
-      if (argv[i][0] == '�') argv[i][0] = '-';
+      if ((unsigned char)argv[i][0] >= 0x80) argv[i][0] = '-';
     }
     if (!lasreadopener.parse(argc, argv)) byebye(true);
   }
