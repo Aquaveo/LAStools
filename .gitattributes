@@ -1,0 +1,12 @@
+# The Conan recipe exports these sources, so their bytes decide the recipe
+# revision. LF everywhere means the same commit gives the same revision on every
+# machine, whatever that machine's core.autocrlf says. It also turns CRLF saved
+# by an editor back into LF on `git add`.
+* text=auto eol=lf
+
+# Old Windows-only formats that their tools expect with CRLF. None of them are
+# part of the Conan build.
+*.bat text eol=crlf
+*.dsp text eol=crlf
+*.dsw text eol=crlf
+*.sln text eol=crlf
