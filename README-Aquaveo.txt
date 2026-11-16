@@ -22,6 +22,58 @@ we use the library the way the authors intended:
 - Add notes to our own product's licensing terms and About pages pointing the
   user to this repo
 
+Building
+--------
+
+`conanfile.py` at the top of this branch builds LASlib with CMake and packages
+it with Conan. You need:
+- Git
+- Python 3.8 or newer
+- Conan 2 (`pip install conan`)
+- CMake 3.15 or newer
+- A C++17 compiler. We use Visual Studio 2022 on Windows, gcc 13 on Linux and
+  Apple clang 17 on macOS.
+
+1. Get the source. Use the branch named after the version you want:
+
+       git clone --branch 2022.22.3 https://github.com/Aquaveo/LAStools.git
+       cd LAStools
+
+2. If you haven't used Conan on this computer before, let it find your
+   compiler:
+
+       conan profile detect
+
+3. Build it:
+
+       conan create . -s build_type=Release -s compiler.cppstd=17
+
+   Use `-s build_type=Debug` for a debug build. Near the end, Conan prints a
+   line starting with `Package folder`. That folder holds the result:
+   - `bin`: the library (LASlib.dll and its .pdb). Debug builds add a `d`,
+     like LASlibd.dll. On Linux and macOS the library is in `lib/LASlib`.
+   - `lib`: the import library you link against on Windows.
+   - `include`: the headers.
+   - `licenses`: the license.
+
+The package has two options. Set them with `-o "laslib/*:<option>=<value>"`:
+- `shared`: `True` (the default) builds a .dll or .so. `False` builds a static
+  library. XMS requires `True`.
+- `wchar_t` (Visual Studio only): `builtin` (the default) or `typedef`. It has
+  to match the program that uses the library, or linking fails. XMS requires
+  `typedef`.
+
+To use your own build in one of our products, replace the product's LASlib.dll
+with yours. Your build must match ours: the same compiler, the same build type,
+`compiler.cppstd=17` and the default options. LASlib crashes when the C++
+standard differs from the program's, even by one version. That's why the
+command above sets it, since `conan profile detect` may pick a different one.
+
+Aquaveo developers: The `external_libs_conan` repo's `build_conans.py` script
+checks out this repo, runs the above commands, checks for a few common problems,
+and uploads the packages to our servers automatically.
+
+
 Making changes to an existing version
 -------------------------------------
 
